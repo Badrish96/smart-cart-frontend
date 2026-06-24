@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import Link from 'next/link'
 import { ShoppingCart, ChevronLeft, ChevronRight, Headphones } from 'lucide-react'
 import Button from '../../components/ui/Button'
-import { getImageUrl } from '@/src/types/product'
+import { getImageUrl, PRODUCT_CATEGORIES } from '@/src/types/product'
 import type { Product } from '@/src/types/product'
 import { ROUTES } from '@/src/routes'
 
@@ -24,19 +24,17 @@ interface Props {
   lang?: string
 }
 
-const CATEGORY_MAP: Record<number, string | null> = {
-  0: null,
-  1: 'Wireless',
-  2: 'Gaming',
-  3: 'Wired',
-}
+// Tab 0 = "All", tabs 1..n = PRODUCT_CATEGORIES[0..n-1]
+// This way adding a new category to PRODUCT_CATEGORIES automatically adds a tab.
+const TABS = ['All', ...PRODUCT_CATEGORIES] as const
 
 export default function CollectionSection({ dict, products = [], isLoading = false, lang = 'en' }: Props) {
   const [activeTab, setActiveTab] = useState(0)
   const trackRef = useRef<HTMLDivElement>(null)
 
-  const filtered = CATEGORY_MAP[activeTab]
-    ? products.filter((p) => p.category === CATEGORY_MAP[activeTab])
+  const activeCategory = activeTab === 0 ? null : TABS[activeTab]
+  const filtered = activeCategory
+    ? products.filter((p) => p.category === activeCategory)
     : products
 
   const scrollBy = (dir: 1 | -1) => {
@@ -55,14 +53,14 @@ export default function CollectionSection({ dict, products = [], isLoading = fal
 
         {/* Filter tabs */}
         <div className="flex items-center gap-3 flex-wrap mb-8">
-          {dict.tabs.map((tab, i) => (
+          {TABS.map((tab, i) => (
             <button
               key={tab}
               type="button"
               className={['tab-btn', activeTab === i ? 'tab-btn--active' : ''].filter(Boolean).join(' ')}
               onClick={() => setActiveTab(i)}
             >
-              {tab}
+              {i === 0 ? (dict.tabs[0] ?? tab) : tab}
             </button>
           ))}
         </div>

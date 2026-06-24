@@ -36,16 +36,18 @@ const STATS = (dict: ProductsDict) => [
 ]
 
 export default function ProductsPageClient({ dict, lang }: Props) {
-  const [activeCategory, setActiveCategory] = useState('All')
+  const [activeIdx, setActiveIdx] = useState(0)
   const dispatch = useAppDispatch()
   const products = useAppSelector(selectProducts)
   const isLoading = useAppSelector(selectProductsLoading)
 
-  useEffect(() => {
-    dispatch(fetchProductsThunk({ category: activeCategory === 'All' ? undefined : activeCategory }))
-  }, [activeCategory, dispatch])
-
+  // Tab 0 = "All", tabs 1..n = PRODUCT_CATEGORIES
   const tabs = [dict.filter_all, ...PRODUCT_CATEGORIES]
+  const activeCategory = activeIdx === 0 ? undefined : PRODUCT_CATEGORIES[activeIdx - 1]
+
+  useEffect(() => {
+    dispatch(fetchProductsThunk({ category: activeCategory }))
+  }, [activeCategory, dispatch])
 
   return (
     <div className="products-page">
@@ -80,12 +82,12 @@ export default function ProductsPageClient({ dict, lang }: Props) {
       <div className="products-body">
         {/* Filter tabs */}
         <div className="products-filter-tabs">
-          {tabs.map((tab) => (
+          {tabs.map((tab, i) => (
             <button
               key={tab}
               type="button"
-              className={`tab-btn${activeCategory === tab || (tab === dict.filter_all && activeCategory === 'All') ? ' tab-btn--active' : ''}`}
-              onClick={() => setActiveCategory(tab === dict.filter_all ? 'All' : tab)}
+              className={`tab-btn${activeIdx === i ? ' tab-btn--active' : ''}`}
+              onClick={() => setActiveIdx(i)}
             >
               {tab}
             </button>

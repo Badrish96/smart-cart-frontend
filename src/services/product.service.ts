@@ -45,10 +45,10 @@ function extractProduct(raw: BackendProductEnvelope): Product {
 export const productService = {
   async getProducts(category?: string, page = 1): Promise<ProductsResponse> {
     const params = new URLSearchParams({ page: String(page) })
-    if (category && category !== 'All') params.set('category', category)
-    const { data } = await httpClient.get<BackendProductsEnvelope>(
-      `${PRODUCTS_BASE}?${params.toString()}`
-    )
+    const url = category
+      ? `${PRODUCTS_BASE}/category/${encodeURIComponent(category)}?${params}`
+      : `${PRODUCTS_BASE}?${params}`
+    const { data } = await httpClient.get<BackendProductsEnvelope>(url)
     return extractProducts(data)
   },
 

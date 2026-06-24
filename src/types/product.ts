@@ -22,12 +22,22 @@ export interface DimensionsSpec {
   unit: 'cm' | 'mm' | 'in'
 }
 
+// Defined before Product so Product.category can reference ProductCategory
+export const PRODUCT_CATEGORIES = ['Wireless', 'Gaming', 'Wired', 'Professional', 'Premium'] as const
+export type ProductCategory = (typeof PRODUCT_CATEGORIES)[number]
+
+export const WEIGHT_UNITS = ['g', 'kg', 'lb', 'oz'] as const
+export type WeightUnit = (typeof WEIGHT_UNITS)[number]
+
+export const DIMENSION_UNITS = ['cm', 'mm', 'in'] as const
+export type DimensionUnit = (typeof DIMENSION_UNITS)[number]
+
 export interface Product {
   _id: string
   name: string
   description: string
   price: number
-  category: 'Wireless' | 'Gaming' | 'Wired' | 'Other'
+  category: ProductCategory
   stock: number
   images: (ProductImage | string)[]
   brand?: string
@@ -50,15 +60,6 @@ export interface ProductsResponse {
   page: number
   pages: number
 }
-
-export const PRODUCT_CATEGORIES = ['Wireless', 'Gaming', 'Wired', 'Professional', 'Premium'] as const
-export type ProductCategory = (typeof PRODUCT_CATEGORIES)[number]
-
-export const WEIGHT_UNITS = ['g', 'kg', 'lb', 'oz'] as const
-export type WeightUnit = (typeof WEIGHT_UNITS)[number]
-
-export const DIMENSION_UNITS = ['cm', 'mm', 'in'] as const
-export type DimensionUnit = (typeof DIMENSION_UNITS)[number]
 
 /** Extract URL from either image format the backend may return */
 export function getImageUrl(image: ProductImage | string): string {

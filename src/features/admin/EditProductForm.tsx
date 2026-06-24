@@ -54,7 +54,7 @@ export default function EditProductForm({ product, messages, onSuccess }: Props)
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<AddProductFormValues>({
+  } = useForm<AddProductFormValues, unknown, AddProductFormValues>({
     resolver: zodResolver(schema),
     mode: 'onTouched',
     defaultValues: {
