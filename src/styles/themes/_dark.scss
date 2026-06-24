@@ -1,0 +1,30 @@
+// Dark Theme — Midnight Indigo
+[data-theme="dark"] {
+  --color-bg-primary:    #08081A;
+  --color-bg-secondary:  #0D0D26;
+  --color-bg-card:       rgba(99, 102, 241, 0.07);
+  --color-bg-card-hover: rgba(99, 102, 241, 0.14);
+  --color-bg-navbar:     rgba(8, 8, 26, 0.92);
+  --color-hero-fade:     rgba(8, 8, 26, 0.52);
+
+  --color-text-primary:  #EEEEFF;
+  --color-text-secondary:#A0A8CC;
+  --color-text-muted:    #55587A;
+  --color-text-inverse:  #08081A;
+
+  --color-accent-primary:   #6366F1;
+  --color-accent-hover:     #818CF8;
+  --color-accent-secondary: #A5B4FC;
+
+  --color-border:        rgba(99, 102, 241, 0.14);
+  --color-border-accent: rgba(99, 102, 241, 0.55);
+
+  --color-shadow:        rgba(0, 0, 0, 0.55);
+  --color-shadow-accent: rgba(99, 102, 241, 0.32);
+
+  --color-price-current:  #818CF8;
+  --color-price-original: #55587A;
+
+  --color-toggle-bg:    #16163A;
+  --color-toggle-thumb: #6366F1;
+}

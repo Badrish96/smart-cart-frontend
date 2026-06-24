@@ -1,0 +1,274 @@
+{
+  "nav": {
+    "home": "होम",
+    "explore": "एक्सप्लोर",
+    "contact": "संपर्क करें",
+    "login": "लॉगिन",
+    "cart": "कार्ट"
+  },
+  "hero": {
+    "title_line1": "आइए डूबें",
+    "title_accent": "संगीत",
+    "title_line2": "की दुनिया में",
+    "description": "ऑडियोफाइल्स के लिए चुने गए प्रीमियम हेडफ़ोन खोजें। चाहे आप गेम खेलें, यात्रा करें, या बनाएं — अपनी दुनिया के लिए परफेक्ट साउंड खोजें।",
+    "shop_now": "अभी खरीदें",
+    "add_to_cart": "कार्ट में जोड़ें"
+  },
+  "products": {
+    "wireless_headphones": "वायरलेस हेडफ़ोन",
+    "add_to_cart": "कार्ट में जोड़ें",
+    "view_all": "सभी उत्पाद देखें"
+  },
+  "stats": {
+    "products_value": "1,500+",
+    "products_label": "उत्पाद उपलब्ध",
+    "brands_value": "50+",
+    "brands_label": "प्रीमियम ब्रांड",
+    "savings_value": "30%",
+    "savings_label": "औसत बचत",
+    "customers_value": "95%",
+    "customers_label": "खुश ग्राहक"
+  },
+  "features": {
+    "heading": "ध्वनि बनाना,",
+    "heading_accent": "अनुभव प्रेरित करना",
+    "subheading": "हम जो कुछ भी करते हैं वह एक लक्ष्य के इर्द-गिर्द बना है — सर्वोत्तम ऑडियो अनुभव प्रदान करना।",
+    "items": [
+      { "title": "प्रीमियम साउंड क्वालिटी", "desc": "हर उत्पाद को स्पष्टता और इमर्सिव साउंड के लिए परखा जाता है।" },
+      { "title": "इनोवेशन फॉरवर्ड", "desc": "ANC से स्पेशियल ऑडियो तक, हम नवीनतम तकनीक स्टॉक करते हैं।" },
+      { "title": "ग्राहक-केंद्रित", "desc": "समर्पित सहायता, आसान रिटर्न और विशेषज्ञ सलाह।" },
+      { "title": "वैश्विक ब्रांड", "desc": "Sony, Bose, Beats, Sennheiser और 50+ ब्रांड।" },
+      { "title": "विशेषज्ञ समीक्षाएं", "desc": "हर लिस्टिंग में ईमानदार विशेषज्ञ समीक्षाएं।" },
+      { "title": "टिकाऊ पैकेजिंग", "desc": "पर्यावरण-अनुकूल पैकेजिंग और कार्बन-सचेत शिपिंग।" }
+    ]
+  },
+  "journey": {
+    "heading": "SmartCart",
+    "heading_accent": "यात्रा नेविगेट करें",
+    "subheading": "खोज से परफेक्ट लिसनिंग सेशन तक चार सरल चरण।",
+    "steps": [
+      { "title": "हेडफ़ोन खोजें", "desc": "ब्रांड, उपयोग और बजट के अनुसार 1,500+ उत्पाद ब्राउज़ करें।" },
+      { "title": "आसान चेकआउट", "desc": "सुरक्षित वन-क्लिक चेकआउट।" },
+      { "title": "तेज डिलीवरी", "desc": "नेक्स्ट-डे डिस्पैच, एंड-टू-एंड ट्रैक।" },
+      { "title": "अनबॉक्स और आनंद लें", "desc": "प्रीमियम पैकेजिंग, क्विक-स्टार्ट गाइड शामिल।" }
+    ]
+  },
+  "collection": {
+    "heading": "अपना",
+    "heading_accent": "कलेक्शन बढ़ाएं",
+    "subheading": "हर श्रेणी में हाथ से चुने गए पसंदीदा।",
+    "tabs": ["सभी", "वायरलेस", "गेमिंग", "वायर्ड"],
+    "shop_now": "अभी खरीदें",
+    "add_to_cart": "कार्ट में जोड़ें"
+  },
+  "testimonials": {
+    "heading": "SmartCart",
+    "heading_accent": "साउंड कम्युनिटी",
+    "subheading": "हजारों ऑडियोफाइल SmartCart पर भरोसा करते हैं।",
+    "items": [
+      { "name": "सारा टी.", "role": "म्यूजिक प्रोड्यूसर", "rating": 5, "text": "SmartCart ने मिनटों में परफेक्ट स्टूडियो मॉनिटर ढूंढे।" },
+      { "name": "राजेश पी.", "role": "गेमर", "rating": 5, "text": "नेक्स्ट डे गेमिंग हेडसेट मिला। स्पेशियल ऑडियो पागलपन है।" },
+      { "name": "एमिली डब्ल्यू.", "role": "कम्यूटर", "rating": 4, "text": "ANC हेडफ़ोन ने मेरी यात्रा बदल दी।" },
+      { "name": "एलेक्स एम.", "role": "DJ", "rating": 5, "text": "यहां DJ हेडफ़ोन का चयन अद्वितीय है।" },
+      { "name": "प्रिया एस.", "role": "ऑडियोफाइल", "rating": 5, "text": "बिना मार्कअप के ऑडियोफाइल-ग्रेड गियर।" },
+      { "name": "जोए आर.", "role": "फिटनेस उत्साही", "rating": 4, "text": "वर्कआउट इयरबड्स अटूट रहे हैं। उत्कृष्ट अनुशंसा।" }
+    ]
+  },
+  "faq": {
+    "heading": "सवाल हैं?",
+    "heading_accent": "जवाब हमारे पास हैं।",
+    "subheading": "जो नहीं मिला? हमारी सहायता टीम से संपर्क करें।",
+    "items": [
+      { "q": "SmartCart पर ऑर्डर कैसे दें?", "a": "हमारे कैटलॉग ब्राउज़ करें, कार्ट में जोड़ें और चेकआउट करें।" },
+      { "q": "ऑर्डर देने के बाद बदल सकते हैं?", "a": "ऑर्डर देने के 1 घंटे के भीतर बदलाव या रद्द किया जा सकता है।" },
+      { "q": "कौन से भुगतान स्वीकार करते हैं?", "a": "Visa, Mastercard, PayPal, UPI, नेट बैंकिंग और EMI विकल्प।" },
+      { "q": "रिटर्न कैसे शुरू करें?", "a": "अकाउंट में जाएं, ऑर्डर चुनें और Return Item दबाएं।" },
+      { "q": "ऑर्डर ट्रैक कैसे करें?", "a": "डिस्पैच के बाद ईमेल और SMS पर ट्रैकिंग लिंक मिलेगा।" },
+      { "q": "एक्सचेंज मिलता है?", "a": "हां! खरीद के 30 दिनों के भीतर एक्सचेंज उपलब्ध है।" }
+    ]
+  },
+  "cta": {
+    "heading": "अपनी साउंड को",
+    "heading_accent": "SmartCart से उन्नत करें",
+    "subheading": "50,000+ ऑडियोफाइल्स से जुड़ें जो अपना अनुभव अपग्रेड कर चुके हैं।",
+    "button": "अभी खरीदें"
+  },
+  "auth": {
+    "password_strength": {
+      "label": "पासवर्ड की मजबूती",
+      "weak": "कमज़ोर",
+      "fair": "ठीक-ठाक",
+      "strong": "मजबूत",
+      "very_strong": "बहुत मजबूत"
+    },
+    "login": {
+      "title": "वापस स्वागत है",
+      "subtitle": "अपने SmartCart खाते में साइन इन करें",
+      "email_label": "ईमेल पता",
+      "email_placeholder": "आप@उदाहरण.com",
+      "password_label": "पासवर्ड",
+      "password_placeholder": "अपना पासवर्ड दर्ज करें",
+      "forgot_password": "पासवर्ड भूल गए?",
+      "submit": "साइन इन करें",
+      "loading": "साइन इन हो रहा है…",
+      "no_account": "खाता नहीं है?",
+      "register_link": "बनाएं",
+      "error_email_required": "ईमेल आवश्यक है",
+      "error_email_invalid": "वैध ईमेल पता दर्ज करें",
+      "error_email_max": "ईमेल 254 अक्षरों से अधिक नहीं होनी चाहिए",
+      "error_password_required": "पासवर्ड आवश्यक है",
+      "error_password_min": "पासवर्ड कम से कम 8 अक्षर का होना चाहिए",
+      "error_password_max": "पासवर्ड 128 अक्षरों से अधिक नहीं होना चाहिए"
+    },
+    "register": {
+      "title": "खाता बनाएं",
+      "subtitle": "SmartCart से जुड़ें और प्रीमियम ऑडियो खोजें",
+      "name_label": "पूरा नाम",
+      "name_placeholder": "जॉन डो",
+      "email_label": "ईमेल पता",
+      "email_placeholder": "आप@उदाहरण.com",
+      "password_label": "पासवर्ड",
+      "password_placeholder": "मजबूत पासवर्ड बनाएं",
+      "confirm_password_label": "पासवर्ड पुष्टि करें",
+      "confirm_password_placeholder": "पासवर्ड फिर से दर्ज करें",
+      "submit": "खाता बनाएं",
+      "loading": "खाता बन रहा है…",
+      "have_account": "पहले से खाता है?",
+      "login_link": "साइन इन करें",
+      "error_name_required": "पूरा नाम आवश्यक है",
+      "error_name_min": "नाम कम से कम 2 अक्षर का होना चाहिए",
+      "error_name_max": "नाम 50 अक्षरों से अधिक नहीं होना चाहिए",
+      "error_name_letters": "नाम में केवल अक्षर, स्पेस, हाइफन और अपॉस्ट्रोफी हो सकते हैं",
+      "error_name_start": "नाम की शुरुआत अक्षर से होनी चाहिए",
+      "error_email_required": "ईमेल आवश्यक है",
+      "error_email_invalid": "वैध ईमेल पता दर्ज करें",
+      "error_email_max": "ईमेल 254 अक्षरों से अधिक नहीं होनी चाहिए",
+      "error_password_required": "पासवर्ड आवश्यक है",
+      "error_password_min": "पासवर्ड कम से कम 8 अक्षर का होना चाहिए",
+      "error_password_max": "पासवर्ड 128 अक्षरों से अधिक नहीं होना चाहिए",
+      "error_password_no_spaces": "पासवर्ड में स्पेस नहीं होनी चाहिए",
+      "error_password_uppercase": "कम से कम एक बड़ा अक्षर (A–Z) होना चाहिए",
+      "error_password_lowercase": "कम से कम एक छोटा अक्षर (a–z) होना चाहिए",
+      "error_password_digit": "कम से कम एक अंक (0–9) होना चाहिए",
+      "error_password_special": "कम से कम एक विशेष अक्षर (!@#$%^&* …) होना चाहिए",
+      "error_confirm_required": "पासवर्ड की पुष्टि करें",
+      "error_passwords_mismatch": "पासवर्ड मेल नहीं खाते",
+      "role_heading": "मैं पंजीकरण कर रहा/रही हूँ",
+      "role_user": "ग्राहक",
+      "role_user_desc": "उत्पाद ब्राउज़ करें और खरीदें",
+      "role_admin": "स्टोर एडमिन",
+      "role_admin_desc": "उत्पाद और इन्वेंटरी प्रबंधित करें"
+    },
+    "forgot_password": {
+      "title": "पासवर्ड रीसेट करें",
+      "subtitle": "ईमेल दर्ज करें, हम रीसेट लिंक भेजेंगे",
+      "email_label": "ईमेल पता",
+      "email_placeholder": "आप@उदाहरण.com",
+      "submit": "रीसेट लिंक भेजें",
+      "loading": "भेज रहा है…",
+      "success_title": "इनबॉक्स देखें",
+      "success_message": "यदि उस ईमेल के लिए खाता मौजूद है, तो आपको जल्द ही रीसेट लिंक मिलेगा।",
+      "back_to_login": "साइन इन पर वापस जाएं",
+      "error_email_required": "ईमेल आवश्यक है",
+      "error_email_invalid": "वैध ईमेल पता दर्ज करें",
+      "error_email_max": "ईमेल 254 अक्षरों से अधिक नहीं होनी चाहिए"
+    },
+    "reset_password": {
+      "title": "नया पासवर्ड सेट करें",
+      "subtitle": "अपने खाते के लिए मजबूत पासवर्ड चुनें",
+      "password_label": "नया पासवर्ड",
+      "password_placeholder": "मजबूत पासवर्ड बनाएं",
+      "confirm_password_label": "नया पासवर्ड पुष्टि करें",
+      "confirm_password_placeholder": "पासवर्ड फिर से दर्ज करें",
+      "submit": "पासवर्ड अपडेट करें",
+      "loading": "अपडेट हो रहा है…",
+      "success_title": "पासवर्ड अपडेट हुआ",
+      "success_message": "आपका पासवर्ड रीसेट हो गया है। अब नए पासवर्ड से साइन इन करें।",
+      "go_to_login": "साइन इन पर जाएं",
+      "invalid_token": "यह रीसेट लिंक अमान्य या समाप्त हो गया है।",
+      "error_password_required": "पासवर्ड आवश्यक है",
+      "error_password_min": "पासवर्ड कम से कम 8 अक्षर का होना चाहिए",
+      "error_password_max": "पासवर्ड 128 अक्षरों से अधिक नहीं होना चाहिए",
+      "error_password_no_spaces": "पासवर्ड में स्पेस नहीं होनी चाहिए",
+      "error_password_uppercase": "कम से कम एक बड़ा अक्षर (A–Z) होना चाहिए",
+      "error_password_lowercase": "कम से कम एक छोटा अक्षर (a–z) होना चाहिए",
+      "error_password_digit": "कम से कम एक अंक (0–9) होना चाहिए",
+      "error_password_special": "कम से कम एक विशेष अक्षर (!@#$%^&* …) होना चाहिए",
+      "error_confirm_required": "पासवर्ड की पुष्टि करें",
+      "error_passwords_mismatch": "पासवर्ड मेल नहीं खाते"
+    }
+  },
+  "admin": {
+    "add_product": {
+      "page_title": "उत्पाद जोड़ें — SmartCart एडमिन",
+      "heading": "नया उत्पाद जोड़ें",
+      "subheading": "SmartCart स्टोर में नया उत्पाद सूचीबद्ध करने के लिए नीचे विवरण भरें।",
+      "name_label": "उत्पाद का नाम",
+      "name_placeholder": "जैसे Sony WH-1000XM5",
+      "description_label": "विवरण",
+      "description_placeholder": "उत्पाद का वर्णन करें…",
+      "price_label": "मूल्य (₹)",
+      "price_placeholder": "जैसे 299.99",
+      "category_label": "श्रेणी",
+      "category_placeholder": "श्रेणी चुनें",
+      "stock_label": "स्टॉक मात्रा",
+      "stock_placeholder": "जैसे 50",
+      "images_label": "उत्पाद छवियाँ",
+      "images_hint": "छवियाँ चुनें या खींचें और छोड़ें। JPG, PNG या WebP — अधिकतम 5 MB प्रति।",
+      "images_selected": "छवि(याँ) चुनी गई",
+      "submit": "उत्पाद जोड़ें",
+      "loading": "अपलोड हो रहा है…",
+      "not_admin": "एडमिन एक्सेस आवश्यक है।",
+      "categories": {
+        "wireless": "वायरलेस",
+        "gaming": "गेमिंग",
+        "wired": "वायर्ड",
+        "other": "अन्य"
+      },
+      "error_name_required": "उत्पाद का नाम आवश्यक है",
+      "error_name_min": "नाम कम से कम 2 अक्षर का होना चाहिए",
+      "error_name_max": "नाम 100 अक्षरों से अधिक नहीं होना चाहिए",
+      "error_description_required": "विवरण आवश्यक है",
+      "error_description_min": "विवरण कम से कम 10 अक्षर का होना चाहिए",
+      "error_description_max": "विवरण 500 अक्षरों से अधिक नहीं होना चाहिए",
+      "error_price_required": "मूल्य आवश्यक है",
+      "error_price_positive": "मूल्य 0 से अधिक होना चाहिए",
+      "error_category_required": "कृपया श्रेणी चुनें",
+      "error_stock_required": "स्टॉक मात्रा आवश्यक है",
+      "error_stock_min": "स्टॉक नकारात्मक नहीं हो सकता",
+      "error_images_required": "कृपया कम से कम एक छवि चुनें"
+    }
+  },
+  "products_page": {
+    "label": "उत्पाद",
+    "heading": "अभी खोजें",
+    "description": "हमारे प्रीमियम हेडफोन संग्रह का अन्वेषण करें — रोजमर्रा के वायरलेस से लेकर प्रोफेशनल गेमिंग गियर तक।",
+    "exclusive_offers": "विशेष ऑफर",
+    "exclusive_offers_desc": "चुनिंदा वस्तुओं पर 30% छूट",
+    "new_arrivals": "नए आगमन",
+    "new_arrivals_desc": "प्रतिदिन 50+ नए उत्पाद",
+    "catalog_size": "1,500+ से अधिक",
+    "catalog_size_desc": "क्यूरेटेड ऑडियो उत्पाद",
+    "filter_all": "सभी",
+    "no_products": "इस श्रेणी में कोई उत्पाद नहीं मिला।",
+    "no_products_sub": "स्टोर भरा जा रहा है — जल्द वापस देखें।",
+    "loading": "उत्पाद लोड हो रहे हैं…",
+    "add_to_cart": "कार्ट में जोड़ें"
+  },
+  "footer": {
+    "tagline": "Dive in Beats",
+    "rights": "© 2025 SmartCart. सर्वाधिकार सुरक्षित।",
+    "newsletter_heading": "न्यूज़लेटर सब्सक्राइब करें",
+    "newsletter_placeholder": "ईमेल दर्ज करें",
+    "newsletter_button": "सब्सक्राइब",
+    "links": {
+      "shop": "शॉप",
+      "about": "हमारे बारे में",
+      "careers": "करियर",
+      "press": "प्रेस",
+      "privacy": "गोपनीयता",
+      "terms": "नियम",
+      "sitemap": "साइटमैप"
+    }
+  }
+}

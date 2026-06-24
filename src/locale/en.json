@@ -1,0 +1,274 @@
+{
+  "nav": {
+    "home": "Home",
+    "explore": "Explore",
+    "contact": "Contact Us",
+    "login": "Login",
+    "cart": "Cart"
+  },
+  "hero": {
+    "title_line1": "Let's Dive in",
+    "title_accent": "Music",
+    "title_line2": "World",
+    "description": "Discover premium headphones handpicked for audiophiles. Whether you game, commute, or create — find the perfect sound for your world.",
+    "shop_now": "Shop now",
+    "add_to_cart": "Add to cart"
+  },
+  "products": {
+    "wireless_headphones": "Wireless Headphones",
+    "add_to_cart": "Add to cart",
+    "view_all": "View All Products"
+  },
+  "stats": {
+    "products_value": "1,500+",
+    "products_label": "Products Available",
+    "brands_value": "50+",
+    "brands_label": "Premium Brands",
+    "savings_value": "30%",
+    "savings_label": "Average Savings",
+    "customers_value": "95%",
+    "customers_label": "Happy Customers"
+  },
+  "features": {
+    "heading": "Crafting Sound,",
+    "heading_accent": "Inspiring Experience",
+    "subheading": "Everything we do is built around one goal — delivering the finest audio experience, backed by a store you can trust.",
+    "items": [
+      { "title": "Premium Sound Quality", "desc": "Every product is tested for clarity, depth, and immersive sound across all genres." },
+      { "title": "Innovation Forward", "desc": "From ANC to spatial audio, we stock the latest tech before anyone else." },
+      { "title": "Customer-Centric", "desc": "Dedicated support, easy returns, and expert advice — always in your corner." },
+      { "title": "Global Brands", "desc": "Curated catalogue spanning Sony, Bose, Beats, Sennheiser, and 50+ more." },
+      { "title": "Expert Reviews", "desc": "Every listing includes honest expert reviews so you buy with confidence." },
+      { "title": "Sustainable Packaging", "desc": "Eco-friendly packaging and carbon-conscious shipping on every order." }
+    ]
+  },
+  "journey": {
+    "heading": "Navigating the",
+    "heading_accent": "SmartCart Journey",
+    "subheading": "Four simple steps from discovery to the perfect listening session.",
+    "steps": [
+      { "title": "Discover Headphones", "desc": "Browse 1,500+ products filtered by brand, use-case, and budget." },
+      { "title": "Effortless Checkout", "desc": "Secure one-click checkout with your preferred payment method." },
+      { "title": "Fast Delivery", "desc": "Next-day dispatch on thousands of products, tracked end-to-end." },
+      { "title": "Unbox & Enjoy", "desc": "Premium packaging, quick-start guide included. Dive straight in." }
+    ]
+  },
+  "collection": {
+    "heading": "Elevate Your",
+    "heading_accent": "Collection",
+    "subheading": "Hand-picked favourites across every category — find yours.",
+    "tabs": ["All", "Wireless", "Gaming", "Wired"],
+    "shop_now": "Shop Now",
+    "add_to_cart": "Add to cart"
+  },
+  "testimonials": {
+    "heading": "The SmartCart",
+    "heading_accent": "Sound Community",
+    "subheading": "Thousands of audiophiles trust SmartCart. Here's what they say.",
+    "items": [
+      { "name": "Sarah T.", "role": "Music Producer", "rating": 5, "text": "SmartCart found me the perfect studio monitors in minutes. The expert reviews are genuinely useful — not just marketing copy." },
+      { "name": "Rajesh P.", "role": "Gamer", "rating": 5, "text": "Got my gaming headset next day. The spatial audio on these is insane. Will never buy elsewhere." },
+      { "name": "Emily W.", "role": "Commuter", "rating": 4, "text": "ANC headphones I bought here completely changed my commute. Great price, even better support team." },
+      { "name": "Alex M.", "role": "DJ", "rating": 5, "text": "The DJ headphone selection here is unmatched. Knowledgeable team helped me choose the right pair for live sets." },
+      { "name": "Priya S.", "role": "Audiophile", "rating": 5, "text": "Finally a store that stocks audiophile-grade gear without the markup. Sennheiser HD800 arrived in perfect condition." },
+      { "name": "Zoe R.", "role": "Fitness Enthusiast", "rating": 4, "text": "Workout earbuds I found here have been indestructible. 8 months in, still going strong. Excellent recommendation." }
+    ]
+  },
+  "faq": {
+    "heading": "Have Questions?",
+    "heading_accent": "We Have Answers.",
+    "subheading": "Can't find what you're looking for? Contact our support team.",
+    "items": [
+      { "q": "How do I place an order on SmartCart?", "a": "Browse our catalogue, add items to your cart, and proceed to checkout. We accept all major cards, UPI, and buy-now-pay-later options. Orders are confirmed instantly via email." },
+      { "q": "Can I modify or cancel my order after placing it?", "a": "Orders can be modified or cancelled within 1 hour of placement. After dispatch, you can initiate a return once delivered. Contact support for help." },
+      { "q": "What payment methods do you accept?", "a": "We accept Visa, Mastercard, American Express, PayPal, UPI, net banking, and EMI options through leading providers. All transactions are SSL-secured." },
+      { "q": "How do I initiate a return?", "a": "Log into your account, navigate to Orders, and select 'Return Item'. Our team will arrange a free pickup within 48 hours and process your refund in 3–5 business days." },
+      { "q": "How can I track my order?", "a": "You'll receive a tracking link via email and SMS once your order is dispatched. You can also track in real-time from your SmartCart account dashboard." },
+      { "q": "Do you offer exchanges for products?", "a": "Yes! Exchanges are available within 30 days of purchase for unused items in original packaging. We'll ship the replacement once we receive the returned item." }
+    ]
+  },
+  "cta": {
+    "heading": "Elevate Your Sound",
+    "heading_accent": "With SmartCart",
+    "subheading": "Join 50,000+ audiophiles who've already upgraded their listening experience.",
+    "button": "Shop Now"
+  },
+  "auth": {
+    "password_strength": {
+      "label": "Password strength",
+      "weak": "Weak",
+      "fair": "Fair",
+      "strong": "Strong",
+      "very_strong": "Very strong"
+    },
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your SmartCart account",
+      "email_label": "Email address",
+      "email_placeholder": "you@example.com",
+      "password_label": "Password",
+      "password_placeholder": "Enter your password",
+      "forgot_password": "Forgot password?",
+      "submit": "Sign in",
+      "loading": "Signing in…",
+      "no_account": "Don't have an account?",
+      "register_link": "Create one",
+      "error_email_required": "Email is required",
+      "error_email_invalid": "Enter a valid email address",
+      "error_email_max": "Email must not exceed 254 characters",
+      "error_password_required": "Password is required",
+      "error_password_min": "Password must be at least 8 characters",
+      "error_password_max": "Password must not exceed 128 characters"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Join SmartCart and explore premium audio",
+      "name_label": "Full name",
+      "name_placeholder": "John Doe",
+      "email_label": "Email address",
+      "email_placeholder": "you@example.com",
+      "password_label": "Password",
+      "password_placeholder": "Create a strong password",
+      "confirm_password_label": "Confirm password",
+      "confirm_password_placeholder": "Re-enter your password",
+      "submit": "Create account",
+      "loading": "Creating account…",
+      "have_account": "Already have an account?",
+      "login_link": "Sign in",
+      "error_name_required": "Full name is required",
+      "error_name_min": "Name must be at least 2 characters",
+      "error_name_max": "Name must not exceed 50 characters",
+      "error_name_letters": "Name may only contain letters, spaces, hyphens, and apostrophes",
+      "error_name_start": "Name must start with a letter",
+      "error_email_required": "Email is required",
+      "error_email_invalid": "Enter a valid email address",
+      "error_email_max": "Email must not exceed 254 characters",
+      "error_password_required": "Password is required",
+      "error_password_min": "Password must be at least 8 characters",
+      "error_password_max": "Password must not exceed 128 characters",
+      "error_password_no_spaces": "Password must not contain spaces",
+      "error_password_uppercase": "Must include at least one uppercase letter (A–Z)",
+      "error_password_lowercase": "Must include at least one lowercase letter (a–z)",
+      "error_password_digit": "Must include at least one number (0–9)",
+      "error_password_special": "Must include at least one special character (!@#$%^&* …)",
+      "error_confirm_required": "Please confirm your password",
+      "error_passwords_mismatch": "Passwords do not match",
+      "role_heading": "I'm registering as",
+      "role_user": "Customer",
+      "role_user_desc": "Browse and buy products",
+      "role_admin": "Store Admin",
+      "role_admin_desc": "Manage products and inventory"
+    },
+    "forgot_password": {
+      "title": "Reset your password",
+      "subtitle": "Enter your email and we'll send you a reset link",
+      "email_label": "Email address",
+      "email_placeholder": "you@example.com",
+      "submit": "Send reset link",
+      "loading": "Sending…",
+      "success_title": "Check your inbox",
+      "success_message": "If an account exists for that email, you'll receive a reset link shortly.",
+      "back_to_login": "Back to sign in",
+      "error_email_required": "Email is required",
+      "error_email_invalid": "Enter a valid email address",
+      "error_email_max": "Email must not exceed 254 characters"
+    },
+    "reset_password": {
+      "title": "Set new password",
+      "subtitle": "Choose a strong password for your account",
+      "password_label": "New password",
+      "password_placeholder": "Create a strong password",
+      "confirm_password_label": "Confirm new password",
+      "confirm_password_placeholder": "Re-enter your new password",
+      "submit": "Update password",
+      "loading": "Updating…",
+      "success_title": "Password updated",
+      "success_message": "Your password has been reset. You can now sign in with your new password.",
+      "go_to_login": "Go to sign in",
+      "invalid_token": "This reset link is invalid or has expired.",
+      "error_password_required": "Password is required",
+      "error_password_min": "Password must be at least 8 characters",
+      "error_password_max": "Password must not exceed 128 characters",
+      "error_password_no_spaces": "Password must not contain spaces",
+      "error_password_uppercase": "Must include at least one uppercase letter (A–Z)",
+      "error_password_lowercase": "Must include at least one lowercase letter (a–z)",
+      "error_password_digit": "Must include at least one number (0–9)",
+      "error_password_special": "Must include at least one special character (!@#$%^&* …)",
+      "error_confirm_required": "Please confirm your password",
+      "error_passwords_mismatch": "Passwords do not match"
+    }
+  },
+  "admin": {
+    "add_product": {
+      "page_title": "Add Product — SmartCart Admin",
+      "heading": "Add New Product",
+      "subheading": "Fill in the details below to list a new product in the SmartCart store.",
+      "name_label": "Product name",
+      "name_placeholder": "e.g. Sony WH-1000XM5",
+      "description_label": "Description",
+      "description_placeholder": "Describe the product — features, specs, compatibility…",
+      "price_label": "Price (₹)",
+      "price_placeholder": "e.g. 299.99",
+      "category_label": "Category",
+      "category_placeholder": "Select a category",
+      "stock_label": "Stock quantity",
+      "stock_placeholder": "e.g. 50",
+      "images_label": "Product images",
+      "images_hint": "Click to select images or drag and drop. JPG, PNG or WebP — max 5 MB each.",
+      "images_selected": "image(s) selected",
+      "submit": "Add Product",
+      "loading": "Uploading product…",
+      "not_admin": "Admin access required.",
+      "categories": {
+        "wireless": "Wireless",
+        "gaming": "Gaming",
+        "wired": "Wired",
+        "other": "Other"
+      },
+      "error_name_required": "Product name is required",
+      "error_name_min": "Name must be at least 2 characters",
+      "error_name_max": "Name must not exceed 100 characters",
+      "error_description_required": "Description is required",
+      "error_description_min": "Description must be at least 10 characters",
+      "error_description_max": "Description must not exceed 500 characters",
+      "error_price_required": "Price is required",
+      "error_price_positive": "Price must be greater than 0",
+      "error_category_required": "Please select a category",
+      "error_stock_required": "Stock quantity is required",
+      "error_stock_min": "Stock cannot be negative",
+      "error_images_required": "Please select at least one image"
+    }
+  },
+  "products_page": {
+    "label": "Products",
+    "heading": "Discover Now",
+    "description": "Explore our premium collection of headphones — from everyday wireless to professional gaming gear.",
+    "exclusive_offers": "Exclusive Offers",
+    "exclusive_offers_desc": "30% off on select items",
+    "new_arrivals": "New Arrivals",
+    "new_arrivals_desc": "50+ new products added daily",
+    "catalog_size": "Over 1,500+",
+    "catalog_size_desc": "Curated audio products",
+    "filter_all": "All",
+    "no_products": "No products found in this category.",
+    "no_products_sub": "The store is being stocked — check back soon.",
+    "loading": "Loading products…",
+    "add_to_cart": "Add to cart"
+  },
+  "footer": {
+    "tagline": "Dive in Beats",
+    "rights": "© 2025 SmartCart. All rights reserved.",
+    "newsletter_heading": "Subscribe to Newsletter",
+    "newsletter_placeholder": "Enter your email",
+    "newsletter_button": "Subscribe",
+    "links": {
+      "shop": "Shop",
+      "about": "About",
+      "careers": "Careers",
+      "press": "Press",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "sitemap": "Sitemap"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+// Light Theme — Soft Periwinkle
+[data-theme="light"] {
+  --color-bg-primary:    #FAFBFF;
+  --color-bg-secondary:  #EEF0FF;
+  --color-bg-card:       rgba(99, 102, 241, 0.06);
+  --color-bg-card-hover: rgba(99, 102, 241, 0.12);
+  --color-bg-navbar:     rgba(250, 251, 255, 0.94);
+  --color-hero-fade:     rgba(250, 251, 255, 0.58);
+
+  --color-text-primary:  #0D0D22;
+  --color-text-secondary:#44446A;
+  --color-text-muted:    #8080A8;
+  --color-text-inverse:  #FAFBFF;
+
+  --color-accent-primary:   #4F46E5;
+  --color-accent-hover:     #4338CA;
+  --color-accent-secondary: #6366F1;
+
+  --color-border:        rgba(79, 70, 229, 0.14);
+  --color-border-accent: rgba(79, 70, 229, 0.45);
+
+  --color-shadow:        rgba(13, 13, 34, 0.08);
+  --color-shadow-accent: rgba(79, 70, 229, 0.22);
+
+  --color-price-current:  #4F46E5;
+  --color-price-original: #8080A8;
+
+  --color-toggle-bg:    #DCDEFF;
+  --color-toggle-thumb: #4F46E5;
+}
