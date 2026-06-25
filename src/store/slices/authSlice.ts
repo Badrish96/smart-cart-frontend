@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 import Cookies from 'js-cookie'
 import { authService } from '@/src/services/auth.service'
+import { profileService } from '@/src/services/profile.service'
 import { addToast } from './toastSlice'
 import type {
   User,
@@ -8,6 +9,7 @@ import type {
   RegisterPayload,
   ForgotPasswordPayload,
   ResetPasswordPayload,
+  UpdateProfilePayload,
 } from '@/src/types/auth'
 import type { RootState } from '../store'
 
@@ -16,6 +18,7 @@ interface AuthState {
   token: string | null
   isHydrated: boolean
   isLoading: boolean
+  isFetchingProfile: boolean
   error: string | null
   forgotPasswordSuccess: boolean
   resetPasswordSuccess: boolean
@@ -42,6 +45,7 @@ const initialState: AuthState = {
   token: null,
   isHydrated: false,
   isLoading: false,
+  isFetchingProfile: false,
   error: null,
   forgotPasswordSuccess: false,
   resetPasswordSuccess: false,
@@ -104,6 +108,32 @@ export const resetPasswordThunk = createAsyncThunk(
     } catch (err: unknown) {
       const message = (err as Error).message
       dispatch(addToast({ type: 'error', title: 'Password reset failed', message }))
+      return rejectWithValue(message)
+    }
+  }
+)
+
+export const fetchProfileThunk = createAsyncThunk(
+  'auth/fetchProfile',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await profileService.getProfile()
+    } catch (err: unknown) {
+      return rejectWithValue((err as Error).message)
+    }
+  }
+)
+
+export const updateProfileThunk = createAsyncThunk(
+  'auth/updateProfile',
+  async (payload: UpdateProfilePayload | FormData, { rejectWithValue, dispatch }) => {
+    try {
+      const user = await profileService.updateProfile(payload)
+      dispatch(addToast({ type: 'success', title: 'Profile updated', message: 'Your profile has been saved.' }))
+      return user
+    } catch (err: unknown) {
+      const message = (err as Error).message
+      dispatch(addToast({ type: 'error', title: 'Update failed', message }))
       return rejectWithValue(message)
     }
   }
@@ -191,6 +221,33 @@ const authSlice = createSlice({
         state.isLoading = false; state.error = action.payload as string
       })
 
+    // Fetch profile (full user data including profilePicture, phone, addresses…)
+    builder
+      .addCase(fetchProfileThunk.pending, (state) => {
+        state.isFetchingProfile = true
+      })
+      .addCase(fetchProfileThunk.fulfilled, (state, action) => {
+        state.isFetchingProfile = false
+        state.user = action.payload
+        saveUser(action.payload)
+      })
+      .addCase(fetchProfileThunk.rejected, (state) => {
+        state.isFetchingProfile = false
+      })
+
+    // Update profile
+    builder
+      .addCase(updateProfileThunk.pending, (state) => { state.isLoading = true; state.error = null })
+      .addCase(updateProfileThunk.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.user = action.payload
+        saveUser(action.payload)
+      })
+      .addCase(updateProfileThunk.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload as string
+      })
+
     // Logout
     builder.addCase(logoutThunk.fulfilled, (state) => {
       state.user = null
@@ -208,3 +265,4 @@ export const selectAuth = (state: RootState) => state.auth
 export const selectUser = (state: RootState) => state.auth.user
 export const selectIsHydrated = (state: RootState) => state.auth.isHydrated
 export const selectIsAuthenticated = (state: RootState) => !!state.auth.token
+export const selectIsFetchingProfile = (state: RootState) => state.auth.isFetchingProfile

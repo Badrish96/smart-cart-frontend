@@ -1,45 +1,92 @@
 'use client'
 
-import React, { useState } from 'react'
-
-interface TestimonialItem {
-  name: string
-  role: string
-  rating: number
-  text: string
-}
+import { useEffect, useState } from 'react'
+import { Star } from 'lucide-react'
+import { productService } from '@/src/services/product.service'
+import { reviewService } from '@/src/services/review.service'
+import type { Review, ReviewUser } from '@/src/types/review'
 
 interface TestimonialsSectionProps {
   dict: {
     heading: string
     heading_accent: string
     subheading: string
-    items: TestimonialItem[]
+    empty: string
   }
+}
+
+interface DisplayReview extends Review {
+  productName: string
+}
+
+function ReviewerAvatar({ user }: { user: ReviewUser | string | null }) {
+  const name = typeof user === 'string' || !user ? 'Customer' : user.name
+  const pic = typeof user === 'string' || !user ? undefined : user.profilePicture?.url
+
+  return (
+    <div className="reviewer-avatar">
+      {pic ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={pic} alt={name} />
+      ) : (
+        name.charAt(0).toUpperCase()
+      )}
+    </div>
+  )
 }
 
 function Stars({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg
+        <Star
           key={i}
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="currentColor"
+          size={14}
           className={i < rating ? 'star-filled' : 'star-empty'}
-        >
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
+          fill={i < rating ? 'currentColor' : 'none'}
+        />
       ))}
     </div>
   )
 }
 
 export default function TestimonialsSection({ dict }: TestimonialsSectionProps) {
+  const [reviews, setReviews] = useState<DisplayReview[]>([])
+  const [loading, setLoading] = useState(true)
   const [showAll, setShowAll] = useState(false)
-  const visible = showAll ? dict.items : dict.items.slice(0, 3)
+
+  useEffect(() => {
+    let cancelled = false
+
+    async function load() {
+      try {
+        const { products } = await productService.getProducts(undefined, 1)
+        const candidates = products.slice(0, 8)
+
+        const results = await Promise.allSettled(
+          candidates.map(async (product) => {
+            const { reviews: r } = await reviewService.getReviews(product._id)
+            return r.map((rv): DisplayReview => ({ ...rv, productName: product.name }))
+          })
+        )
+
+        const all: DisplayReview[] = results.flatMap((r) =>
+          r.status === 'fulfilled' ? r.value : []
+        )
+
+        if (!cancelled) setReviews(all)
+      } catch {
+        // section stays empty silently
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    load()
+    return () => { cancelled = true }
+  }, [])
+
+  const visible = showAll ? reviews : reviews.slice(0, 3)
 
   return (
     <section className="py-20 bg-secondary">
@@ -51,37 +98,58 @@ export default function TestimonialsSection({ dict }: TestimonialsSectionProps) 
           <p className="section-subheading mx-auto">{dict.subheading}</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {visible.map((item) => (
-            <div key={item.name} className="testimonial-card">
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div className="testimonial-avatar">{item.name.charAt(0)}</div>
-                  <div>
-                    <p className="text-sm font-semibold text-primary">{item.name}</p>
-                    <p className="text-xs text-muted">{item.role}</p>
-                  </div>
-                </div>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-accent flex-shrink-0 mt-1">
-                  <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                </svg>
+        {loading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[1, 2, 3].map((n) => (
+              <div key={n} className="testimonial-card animate-pulse">
+                <div className="h-4 bg-secondary rounded w-1/2 mb-3" />
+                <div className="h-3 bg-secondary rounded w-full mb-2" />
+                <div className="h-3 bg-secondary rounded w-4/5" />
               </div>
-              <Stars rating={item.rating} />
-              <p className="text-sm text-secondary leading-relaxed mt-3">{item.text}</p>
-            </div>
-          ))}
-        </div>
-
-        {dict.items.length > 3 && (
-          <div className="flex justify-center mt-10">
-            <button
-              type="button"
-              className="btn btn-outline"
-              onClick={() => setShowAll(v => !v)}
-            >
-              {showAll ? 'Show Less' : 'View More'}
-            </button>
+            ))}
           </div>
+        )}
+
+        {!loading && reviews.length === 0 && (
+          <p className="text-center text-body-sm text-muted">{dict.empty}</p>
+        )}
+
+        {!loading && reviews.length > 0 && (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {visible.map((review) => {
+                const user = typeof review.userId === 'string' ? null : review.userId as ReviewUser
+                const name = user?.name ?? 'Customer'
+                return (
+                  <div key={review._id} className="testimonial-card">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <ReviewerAvatar user={review.userId} />
+                        <div>
+                          <p className="fs-sm fw-semibold text-primary">{name}</p>
+                          <p className="fs-xs text-muted">{review.productName}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <Stars rating={review.rating} />
+                    <p className="fs-sm text-secondary leading-relaxed mt-3">{review.comment}</p>
+                  </div>
+                )
+              })}
+            </div>
+
+            {reviews.length > 3 && (
+              <div className="flex justify-center mt-10">
+                <button
+                  type="button"
+                  className="btn btn-outline"
+                  onClick={() => setShowAll((v) => !v)}
+                >
+                  {showAll ? 'Show Less' : 'View More'}
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>

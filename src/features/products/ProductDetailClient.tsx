@@ -7,6 +7,24 @@ import { productService } from '@/src/services/product.service'
 import { getImageUrl } from '@/src/types/product'
 import type { Product } from '@/src/types/product'
 import { ROUTES } from '@/src/routes'
+import ReviewsSection from './ReviewsSection'
+import WishlistButton from '@/src/components/ui/WishlistButton/WishlistButton'
+
+interface ReviewsDict {
+  heading: string
+  no_reviews: string
+  add_heading: string
+  rating_label: string
+  comment_label: string
+  comment_placeholder: string
+  submit: string
+  loading: string
+  already_reviewed: string
+  login_required: string
+  error_rating: string
+  error_comment_min: string
+  error_comment_max: string
+}
 
 interface Props {
   id: string
@@ -17,10 +35,11 @@ interface Props {
   inStockLabel: string
   outOfStockLabel: string
   categoryLabel: string
+  reviewsDict: ReviewsDict
 }
 
 export default function ProductDetailClient({
-  id, lang, backLabel, addToCartLabel, stockLabel, inStockLabel, outOfStockLabel, categoryLabel,
+  id, lang, backLabel, addToCartLabel, stockLabel, inStockLabel, outOfStockLabel, categoryLabel, reviewsDict,
 }: Props) {
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
@@ -145,10 +164,13 @@ export default function ProductDetailClient({
           )}
 
           {/* CTA */}
-          <button type="button" disabled={!inStock} className="btn btn-primary btn-lg mb-6" style={{ minWidth: 200 }}>
-            <ShoppingCart size={18} />
-            {addToCartLabel}
-          </button>
+          <div className="flex items-center gap-3 mb-6">
+            <button type="button" disabled={!inStock} className="btn btn-primary btn-lg" style={{ minWidth: 200 }}>
+              <ShoppingCart size={18} />
+              {addToCartLabel}
+            </button>
+            <WishlistButton productId={product._id} lang={lang} size={20} className="w-12 h-12" />
+          </div>
 
           {/* Key Features */}
           {product.keyFeatures && product.keyFeatures.length > 0 && (
@@ -204,6 +226,8 @@ export default function ProductDetailClient({
           </div>
         </div>
       )}
+
+      <ReviewsSection productId={id} dict={reviewsDict} />
     </div>
   )
 }

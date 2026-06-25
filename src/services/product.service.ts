@@ -52,6 +52,12 @@ export const productService = {
     return extractProducts(data)
   },
 
+  async searchProducts(query: string, page = 1): Promise<ProductsResponse> {
+    const params = new URLSearchParams({ search: query, page: String(page) })
+    const { data } = await httpClient.get<BackendProductsEnvelope>(`${PRODUCTS_BASE}?${params}`)
+    return extractProducts(data)
+  },
+
   async getProduct(id: string): Promise<Product> {
     const { data } = await httpClient.get<BackendProductEnvelope>(`${PRODUCTS_BASE}/${id}`)
     return extractProduct(data)

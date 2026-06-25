@@ -7,6 +7,7 @@ import Button from '../../components/ui/Button'
 import { getImageUrl, PRODUCT_CATEGORIES } from '@/src/types/product'
 import type { Product } from '@/src/types/product'
 import { ROUTES } from '@/src/routes'
+import WishlistButton from '@/src/components/ui/WishlistButton/WishlistButton'
 
 interface CollectionDict {
   heading: string
@@ -122,14 +123,17 @@ export default function CollectionSection({ dict, products = [], isLoading = fal
                         <span className="price-current fs-sm fw-bold">₹{product.price.toFixed(2)}</span>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      className="product-cart-btn"
-                      aria-label={dict.add_to_cart}
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <ShoppingCart size={14} />
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <WishlistButton productId={product._id} lang={lang} size={14} />
+                      <button
+                        type="button"
+                        className="product-cart-btn"
+                        aria-label={dict.add_to_cart}
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <ShoppingCart size={14} />
+                      </button>
+                    </div>
                   </Link>
                 )
               })}

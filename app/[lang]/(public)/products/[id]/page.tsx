@@ -23,6 +23,7 @@ export default async function ProductDetailPage({ params }: Props) {
       inStockLabel="In stock"
       outOfStockLabel="Out of stock"
       categoryLabel="Category"
+      reviewsDict={dict.reviews}
     />
   )
 }

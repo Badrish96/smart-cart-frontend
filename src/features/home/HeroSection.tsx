@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ShoppingCart, ChevronDown, Headphones } from 'lucide-react'
 import Button from '../../components/ui/Button'
+import WishlistButton from '@/src/components/ui/WishlistButton/WishlistButton'
 import { getImageUrl } from '@/src/types/product'
 import type { Product } from '@/src/types/product'
 import { ROUTES } from '@/src/routes'
@@ -103,6 +104,9 @@ export default function HeroSection({
               {products.map((product) => {
                 const rawImg = product.images?.[0]
                 const imgUrl = rawImg ? getImageUrl(rawImg) : null
+                const discountedPrice = product.discount
+                  ? product.price * (1 - product.discount / 100)
+                  : null
                 return (
                   <Link
                     key={product._id}
@@ -112,29 +116,37 @@ export default function HeroSection({
                     <div className="product-image-wrap flex items-center justify-center">
                       {imgUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={imgUrl}
-                          alt={product.name}
-                          className="hero-product-thumb"
-                        />
+                        <img src={imgUrl} alt={product.name} className="hero-product-thumb" />
                       ) : (
                         <Headphones size={64} className="text-muted" />
                       )}
                     </div>
-                    <div className="text-center w-full">
+                    <div className="w-full">
                       <p className="fs-sm fw-medium text-primary mb-1 hero-product-name">
                         {product.name}
                       </p>
-                      <div className="flex items-center justify-between">
-                        <span className="price-current">₹{product.price.toFixed(2)}</span>
-                        <button
-                          type="button"
-                          className="product-cart-btn"
-                          aria-label={productsDict.add_to_cart}
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <ShoppingCart size={14} />
-                        </button>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-baseline gap-1.5">
+                          {discountedPrice ? (
+                            <>
+                              <span className="price-current">₹{discountedPrice.toFixed(2)}</span>
+                              <span className="price-original fs-xs">₹{product.price.toFixed(2)}</span>
+                            </>
+                          ) : (
+                            <span className="price-current">₹{product.price.toFixed(2)}</span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <WishlistButton productId={product._id} lang={lang} size={13} />
+                          <button
+                            type="button"
+                            className="product-cart-btn"
+                            aria-label={productsDict.add_to_cart}
+                            onClick={(e) => e.preventDefault()}
+                          >
+                            <ShoppingCart size={14} />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </Link>

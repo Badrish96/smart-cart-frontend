@@ -7,6 +7,7 @@ export const ROUTES = {
   /** Public */
   home: (lang: string) => `/${lang}/home`,
   products: (lang: string) => `/${lang}/products`,
+  contact: (lang: string) => `/${lang}/contact`,
   productDetail: (lang: string, id: string) => `/${lang}/products/${id}`,
 
   /** Auth */
@@ -17,6 +18,10 @@ export const ROUTES = {
     token
       ? `/${lang}/reset-password?token=${encodeURIComponent(token)}`
       : `/${lang}/reset-password`,
+
+  /** Protected — user */
+  profile: (lang: string) => `/${lang}/profile`,
+  wishlist: (lang: string) => `/${lang}/wishlist`,
 
   /** Protected — admin */
   adminDashboard: (lang: string) => `/${lang}/admin`,
