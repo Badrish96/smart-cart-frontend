@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server'
 const LOCALES = ['en', 'hi']
 const DEFAULT_LOCALE = 'en'
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Skip Next.js internals, API routes, and static files
