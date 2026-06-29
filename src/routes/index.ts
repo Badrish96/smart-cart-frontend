@@ -22,6 +22,10 @@ export const ROUTES = {
   /** Protected — user */
   profile: (lang: string) => `/${lang}/profile`,
   wishlist: (lang: string) => `/${lang}/wishlist`,
+  cart: (lang: string) => `/${lang}/cart`,
+  checkout: (lang: string) => `/${lang}/checkout`,
+  orders: (lang: string) => `/${lang}/orders`,
+  orderDetail: (lang: string, id: string) => `/${lang}/orders/${id}`,
 
   /** Protected — admin */
   adminDashboard: (lang: string) => `/${lang}/admin`,

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
 import { wishlistService } from '@/src/services/wishlist.service'
 import type { WishlistProduct } from '@/src/types/wishlist'
 import type { RootState } from '../store'
@@ -106,8 +106,11 @@ const wishlistSlice = createSlice({
 // ── Selectors ─────────────────────────────────────────────────────────────────
 export const selectWishlist = (state: RootState) => state.wishlist
 
-export const selectWishlistProductIds = (state: RootState): string[] =>
-  state.wishlist.products.map((p) => p._id)
+// Memoised — avoids creating a new array reference on every render
+export const selectWishlistProductIds = createSelector(
+  (state: RootState) => state.wishlist.products,
+  (products) => products.map((p) => p._id)
+)
 
 export const selectIsInWishlist = (productId: string) => (state: RootState): boolean =>
   state.wishlist.products.some((p) => p._id === productId)

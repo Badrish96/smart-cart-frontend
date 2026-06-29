@@ -2,12 +2,13 @@
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { ShoppingCart, ChevronLeft, ChevronRight, Headphones } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Headphones } from 'lucide-react'
 import Button from '../../components/ui/Button'
 import { getImageUrl, PRODUCT_CATEGORIES } from '@/src/types/product'
 import type { Product } from '@/src/types/product'
 import { ROUTES } from '@/src/routes'
 import WishlistButton from '@/src/components/ui/WishlistButton/WishlistButton'
+import AddToCartButton from '@/src/components/ui/AddToCartButton/AddToCartButton'
 
 interface CollectionDict {
   heading: string
@@ -125,14 +126,7 @@ export default function CollectionSection({ dict, products = [], isLoading = fal
                     </div>
                     <div className="flex items-center gap-2">
                       <WishlistButton productId={product._id} lang={lang} size={14} />
-                      <button
-                        type="button"
-                        className="product-cart-btn"
-                        aria-label={dict.add_to_cart}
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <ShoppingCart size={14} />
-                      </button>
+                      <AddToCartButton productId={product._id} lang={lang} label={dict.add_to_cart} variant="icon" />
                     </div>
                   </Link>
                 )

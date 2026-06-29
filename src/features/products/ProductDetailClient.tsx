@@ -9,6 +9,7 @@ import type { Product } from '@/src/types/product'
 import { ROUTES } from '@/src/routes'
 import ReviewsSection from './ReviewsSection'
 import WishlistButton from '@/src/components/ui/WishlistButton/WishlistButton'
+import AddToCartButton from '@/src/components/ui/AddToCartButton/AddToCartButton'
 
 interface ReviewsDict {
   heading: string
@@ -165,10 +166,14 @@ export default function ProductDetailClient({
 
           {/* CTA */}
           <div className="flex items-center gap-3 mb-6">
-            <button type="button" disabled={!inStock} className="btn btn-primary btn-lg" style={{ minWidth: 200 }}>
-              <ShoppingCart size={18} />
-              {addToCartLabel}
-            </button>
+            <AddToCartButton
+              productId={product._id}
+              lang={lang}
+              label={addToCartLabel}
+              variant="full"
+              disabled={!inStock}
+              className="btn-lg"
+            />
             <WishlistButton productId={product._id} lang={lang} size={20} className="w-12 h-12" />
           </div>
 

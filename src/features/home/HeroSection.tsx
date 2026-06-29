@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ShoppingCart, ChevronDown, Headphones } from 'lucide-react'
 import Button from '../../components/ui/Button'
 import WishlistButton from '@/src/components/ui/WishlistButton/WishlistButton'
+import AddToCartButton from '@/src/components/ui/AddToCartButton/AddToCartButton'
 import { getImageUrl } from '@/src/types/product'
 import type { Product } from '@/src/types/product'
 import { ROUTES } from '@/src/routes'
@@ -138,14 +139,7 @@ export default function HeroSection({
                         </div>
                         <div className="flex items-center gap-1.5">
                           <WishlistButton productId={product._id} lang={lang} size={13} />
-                          <button
-                            type="button"
-                            className="product-cart-btn"
-                            aria-label={productsDict.add_to_cart}
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            <ShoppingCart size={14} />
-                          </button>
+                          <AddToCartButton productId={product._id} lang={lang} label={productsDict.add_to_cart} variant="icon" />
                         </div>
                       </div>
                     </div>

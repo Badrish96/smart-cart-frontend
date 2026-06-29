@@ -66,8 +66,8 @@ export const authService = {
 
   async resetPassword(payload: ResetPasswordPayload): Promise<{ message: string }> {
     const { data } = await httpClient.post<BackendMessageEnvelope>(
-      `${AUTH_BASE}/reset-password`,
-      payload
+      `${AUTH_BASE}/reset-password/${payload.token}`,
+      { password: payload.newPassword }
     )
     return { message: data.message }
   },

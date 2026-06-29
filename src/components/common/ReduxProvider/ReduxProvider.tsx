@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 import { store } from '@/src/store/store'
 import { hydrateAuth, logoutThunk, fetchProfileThunk } from '@/src/store/slices/authSlice'
 import { fetchWishlistThunk } from '@/src/store/slices/wishlistSlice'
+import { fetchCartThunk } from '@/src/store/slices/cartSlice'
 import { addToast } from '@/src/store/slices/toastSlice'
 
 const USER_COOKIE = 'sc_user'
@@ -20,6 +21,7 @@ export default function ReduxProvider({ children }: { children: React.ReactNode 
     if (token) {
       store.dispatch(fetchProfileThunk())
       store.dispatch(fetchWishlistThunk())
+      store.dispatch(fetchCartThunk())
     }
 
     // Watch for login/register during this session: when a token transitions
@@ -37,6 +39,7 @@ export default function ReduxProvider({ children }: { children: React.ReactNode 
         prevToken = nextToken          // ← update BEFORE dispatching
         store.dispatch(fetchProfileThunk())
         store.dispatch(fetchWishlistThunk())
+        store.dispatch(fetchCartThunk())
       } else {
         prevToken = nextToken
       }

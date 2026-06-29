@@ -8,6 +8,7 @@ import SearchOverlay from '@/src/features/search/SearchOverlay'
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks'
 import { logoutThunk, selectAuth } from '@/src/store/slices/authSlice'
 import { selectWishlistProductIds } from '@/src/store/slices/wishlistSlice'
+import { selectCartCount } from '@/src/store/slices/cartSlice'
 import { ROUTES } from '@/src/routes'
 
 interface NavbarProps {
@@ -76,11 +77,13 @@ export default function Navbar({ dict, lang }: NavbarProps) {
   const router = useRouter()
   const { user, token } = useAppSelector(selectAuth)
   const wishlistIds = useAppSelector(selectWishlistProductIds)
+  const cartCount = useAppSelector(selectCartCount)
 
   const isClient = useIsClient()
   const isLoggedIn = isClient && !!token
   const isAdmin = isClient && user?.role === 'admin'
   const wishlistCount = isClient && isLoggedIn ? wishlistIds.length : 0
+  const cartBadge = isClient && isLoggedIn ? cartCount : 0
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -204,10 +207,14 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                   </Link>
                 )}
 
-                <button type="button" className="navbar-icon-btn relative" aria-label="Cart">
+                <Link href={ROUTES.cart(lang)} className="navbar-icon-btn relative" aria-label="Cart">
                   <ShoppingCart size={18} />
-                  <span className="badge-accent absolute -top-1 -right-1 w-4 h-4 rounded-full text-[10px] fw-bold flex items-center justify-center text-white">3</span>
-                </button>
+                  {cartBadge > 0 && (
+                    <span className="badge-accent absolute -top-1 -right-1 w-4 h-4 rounded-full text-[10px] fw-bold flex items-center justify-center text-white">
+                      {cartBadge > 9 ? '9+' : cartBadge}
+                    </span>
+                  )}
+                </Link>
 
                 {/* Profile avatar / login — desktop */}
                 {isLoggedIn && user ? (
@@ -234,6 +241,13 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                           onClick={() => setProfileOpen(false)}
                         >
                           <UserIcon size={15} /> {dict.profile.nav_label}
+                        </Link>
+                        <Link
+                          href={ROUTES.orders(lang)}
+                          className="flex items-center gap-3 px-4 py-2.5 fs-sm text-secondary nav-link"
+                          onClick={() => setProfileOpen(false)}
+                        >
+                          <ShoppingCart size={15} /> Your Orders
                         </Link>
                         <button
                           type="button"
@@ -289,12 +303,11 @@ export default function Navbar({ dict, lang }: NavbarProps) {
 
                   {isLoggedIn ? (
                     <>
-                      <Link
-                        href={ROUTES.profile(lang)}
-                        className="flex items-center gap-2 nav-link fs-base fw-medium"
-                        onClick={() => setMenuOpen(false)}
-                      >
+                      <Link href={ROUTES.profile(lang)} className="flex items-center gap-2 nav-link fs-base fw-medium" onClick={() => setMenuOpen(false)}>
                         <UserIcon size={16} /> {dict.profile.nav_label}
+                      </Link>
+                      <Link href={ROUTES.orders(lang)} className="flex items-center gap-2 nav-link fs-base fw-medium" onClick={() => setMenuOpen(false)}>
+                        <ShoppingCart size={16} /> My Orders
                       </Link>
                       <button type="button" onClick={handleLogout} className="btn btn-ghost btn-sm btn-block">
                         <LogOut size={14} /> Sign out

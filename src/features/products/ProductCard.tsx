@@ -1,11 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingCart, Headphones } from 'lucide-react'
+import { Headphones } from 'lucide-react'
 import type { Product } from '@/src/types/product'
 import { getImageUrl } from '@/src/types/product'
 import { ROUTES } from '@/src/routes'
 import WishlistButton from '@/src/components/ui/WishlistButton/WishlistButton'
+import AddToCartButton from '@/src/components/ui/AddToCartButton/AddToCartButton'
 
 interface Props {
   product: Product
@@ -37,15 +38,7 @@ export default function ProductCard({ product, addToCartLabel, lang }: Props) {
           <span className="product-card-price">₹{product.price.toFixed(2)}</span>
           <div className="flex items-center gap-2">
             <WishlistButton productId={product._id} lang={lang} />
-            <button
-              type="button"
-              className="product-card-add-btn"
-              aria-label={addToCartLabel}
-              title={addToCartLabel}
-              onClick={(e) => e.preventDefault()}
-            >
-              <ShoppingCart size={16} />
-            </button>
+            <AddToCartButton productId={product._id} lang={lang} label={addToCartLabel} variant="icon" />
           </div>
         </div>
       </div>
