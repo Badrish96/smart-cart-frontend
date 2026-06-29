@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff, Mail, Lock, User, ShoppingBag, Settings } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -82,14 +82,14 @@ export default function RegisterForm({ dict, strengthLabels, lang }: Props) {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(schema),
     mode: 'onTouched',
   })
 
-  const passwordValue = watch('password') ?? ''
+  const passwordValue = useWatch({ control, name: 'password' }) ?? ''
 
   useEffect(() => {
     if (token && user) {

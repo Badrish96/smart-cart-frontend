@@ -2007,6 +2007,125 @@ body {
   padding: 24px;
 }
 
+// ── Gallery zoom trigger ──────────────────────────────────────────────────────
+.gallery-zoom-trigger {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: zoom-in;
+  background: none;
+  border: none;
+  padding: 0;
+
+  &:hover .gallery-zoom-icon { opacity: 1; }
+}
+
+.gallery-zoom-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+
+// ── Image lightbox ────────────────────────────────────────────────────────────
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.gallery-lightbox-img {
+  max-width: min(90vw, 800px);
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.gallery-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  z-index: 101;
+
+  &:hover { background: var(--color-bg-card-hover); }
+}
+
+.gallery-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  z-index: 101;
+
+  &:hover { background: var(--color-bg-card-hover); }
+  &--prev { left: 24px; }
+  &--next { right: 24px; }
+}
+
+.gallery-lightbox-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 101;
+}
+
+.gallery-lightbox-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+
+  &--active { background: #fff; transform: scale(1.3); }
+  &:hover { background: rgba(255, 255, 255, 0.7); }
+}
+
 .gallery-nav {
   position: absolute;
   top: 50%;
@@ -2518,6 +2637,11 @@ body {
     background: var(--color-bg-card);
     border-left: 1px solid var(--color-border);
     border-right: 1px solid var(--color-border);
+  }
+
+  &--lg {
+    button { width: 42px; height: 42px; font-size: 18px; }
+    span   { width: 48px; height: 42px; font-size: 15px; }
   }
 }
 

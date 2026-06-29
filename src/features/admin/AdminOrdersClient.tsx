@@ -6,10 +6,6 @@ import type { Order, OrderStatus } from '@/src/types/order'
 
 const STATUSES: OrderStatus[] = ['placed', 'confirmed', 'shipped', 'delivered', 'cancelled']
 
-const STATUS_COLORS: Record<OrderStatus, string> = {
-  placed: 'placed', confirmed: 'confirmed', shipped: 'shipped',
-  delivered: 'delivered', cancelled: 'cancelled',
-}
 
 export default function AdminOrdersClient() {
   const [orders, setOrders] = useState<Order[]>([])

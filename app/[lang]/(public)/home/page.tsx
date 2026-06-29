@@ -1,12 +1,25 @@
 import { notFound } from 'next/navigation'
+import dynamic from 'next/dynamic'
 import { getDictionary, hasLocale } from '../../dictionaries'
-import HomeProductsClient  from '../../../../src/features/home/HomeProductsClient'
-import StatsSection        from '../../../../src/features/home/StatsSection'
-import FeaturesSection     from '../../../../src/features/home/FeaturesSection'
-import JourneySection      from '../../../../src/features/home/JourneySection'
-import TestimonialsSection from '../../../../src/features/home/TestimonialsSection'
-import FAQSection          from '../../../../src/features/home/FAQSection'
-import CTASection          from '../../../../src/features/home/CTASection'
+
+// Above the fold — SSR on, code-split JS bundle
+const HomeProductsClient = dynamic(
+  () => import('../../../../src/features/home/HomeProductsClient'),
+  { loading: () => <div style={{ minHeight: '100vh' }} /> }
+)
+
+// Static server components — just code-split, no ssr flag needed
+const StatsSection    = dynamic(() => import('../../../../src/features/home/StatsSection'))
+const FeaturesSection = dynamic(() => import('../../../../src/features/home/FeaturesSection'))
+const JourneySection  = dynamic(() => import('../../../../src/features/home/JourneySection'))
+const CTASection      = dynamic(() => import('../../../../src/features/home/CTASection'))
+
+const TestimonialsSection = dynamic(
+  () => import('../../../../src/features/home/TestimonialsSection')
+)
+const FAQSection = dynamic(
+  () => import('../../../../src/features/home/FAQSection')
+)
 
 interface Props {
   params: Promise<{ lang: string }>
@@ -19,7 +32,6 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      {/* HeroSection + CollectionSection share a single products fetch */}
       <HomeProductsClient
         heroDict={dict.hero}
         productsDict={dict.products}

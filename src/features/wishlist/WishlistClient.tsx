@@ -2,9 +2,10 @@
 
 import { useEffect } from 'react'
 import Link from 'next/link'
-import { Heart, Trash2, ShoppingCart, Headphones } from 'lucide-react'
+import { Heart, Trash2, Headphones } from 'lucide-react'
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks'
 import { fetchWishlistThunk, removeFromWishlistThunk, selectWishlist } from '@/src/store/slices/wishlistSlice'
+import AddToCartButton from '@/src/components/ui/AddToCartButton/AddToCartButton'
 import { getImageUrl } from '@/src/types/product'
 import { ROUTES } from '@/src/routes'
 
@@ -100,14 +101,15 @@ export default function WishlistClient({ lang, dict }: Props) {
                 </div>
 
                 <div className="flex gap-2 mt-auto">
-                  <button
-                    type="button"
-                    className="btn btn-primary btn-sm flex-1"
-                    disabled={(product.stock ?? 1) === 0}
-                  >
-                    <ShoppingCart size={14} />
-                    {dict.add_to_cart}
-                  </button>
+                  <div className="flex-1">
+                    <AddToCartButton
+                      productId={product._id}
+                      lang={lang}
+                      label={dict.add_to_cart}
+                      variant="full"
+                      disabled={(product.stock ?? 1) === 0}
+                    />
+                  </div>
                   <button
                     type="button"
                     className="btn btn-ghost btn-sm"

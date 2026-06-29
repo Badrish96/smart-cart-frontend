@@ -1,25 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { cartService } from '@/src/services/cart.service'
 import { productService } from '@/src/services/product.service'
-import type { Cart, CartItem } from '@/src/types/cart'
+import type { Cart, CartItem, CartProduct } from '@/src/types/cart'
 import type { RootState } from '../store'
 
 /** Populate string productIds with full product data so images and names render. */
 async function enrichItems(items: CartItem[]): Promise<CartItem[]> {
+  // Items already have a populated product object — no fetch needed
   const toFetch = items
-    .filter((item) => typeof item.productId === 'string')
+    .filter((item) => !item.product && typeof item.productId === 'string')
     .map((item) => item.productId as string)
 
   if (toFetch.length === 0) return items
 
-  const products = await Promise.allSettled(toFetch.map((id) => productService.getProduct(id)))
-  const map: Record<string, (typeof products)[0] extends PromiseFulfilledResult<infer T> ? T : never> = {}
-  products.forEach((r, i) => {
-    if (r.status === 'fulfilled') map[toFetch[i]] = r.value
+  const results = await Promise.allSettled(toFetch.map((id) => productService.getProduct(id)))
+  const map: Record<string, CartProduct> = {}
+  results.forEach((r, i) => {
+    if (r.status === 'fulfilled') map[toFetch[i]] = r.value as unknown as CartProduct
   })
 
   return items.map((item) =>
-    typeof item.productId === 'string' && map[item.productId]
+    !item.product && typeof item.productId === 'string' && map[item.productId]
       ? { ...item, productId: map[item.productId] }
       : item
   )

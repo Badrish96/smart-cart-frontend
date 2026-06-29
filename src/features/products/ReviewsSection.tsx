@@ -204,8 +204,6 @@ export default function ReviewsSection({ productId, dict }: Props) {
     }
   }
 
-  const isAdmin = user?.role === 'admin'
-
   return (
     <section className="pd-specs-section">
       <div className="flex items-center gap-4 mb-6 flex-wrap">

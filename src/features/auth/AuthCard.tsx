@@ -1,6 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
-import { ROUTES } from '@/src/routes'
 
 interface AuthCardProps {
   title: string
@@ -9,7 +7,7 @@ interface AuthCardProps {
   lang: string
 }
 
-export default function AuthCard({ title, subtitle, children, lang }: AuthCardProps) {
+export default function AuthCard({ title, subtitle, children }: AuthCardProps) {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 mt-12 bg-primary">
       <div className="w-full max-w-md">

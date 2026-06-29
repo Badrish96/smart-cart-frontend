@@ -12,7 +12,8 @@ export interface CartProduct {
 
 export interface CartItem {
   _id: string
-  productId: CartProduct | string
+  productId?: CartProduct | string   // some API versions use this
+  product?: CartProduct              // other API versions use this
   quantity: number
   price: number      // snapshotted at add time
   discount?: number  // snapshotted at add time

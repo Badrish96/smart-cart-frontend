@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import Link from 'next/link'
-import { ShoppingCart, Trash2, Minus, Plus, Headphones } from 'lucide-react'
+import { ShoppingCart, Trash2, Headphones } from 'lucide-react'
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks'
 import {
   fetchCartThunk, updateCartItemThunk, removeCartItemThunk,

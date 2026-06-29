@@ -36,6 +36,7 @@ function normaliseAuth(raw: BackendAuthEnvelope): AuthResponse {
   return {
     accessToken: raw.data.token,
     user: {
+      _id: raw.data.user.id,
       id: raw.data.user.id,
       name: raw.data.user.name,
       email: raw.data.user.email,

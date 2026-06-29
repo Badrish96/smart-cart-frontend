@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks'
 import { selectAuth } from '@/src/store/slices/authSlice'
-import { addToCartThunk, selectIsCartPending, selectCart } from '@/src/store/slices/cartSlice'
+import { addToCartThunk, selectIsCartPending } from '@/src/store/slices/cartSlice'
 import { ROUTES } from '@/src/routes'
 
 interface AddToCartButtonProps {
@@ -32,14 +32,8 @@ export default function AddToCartButton({
   const router = useRouter()
   const { token } = useAppSelector(selectAuth)
   const isPending = useAppSelector(selectIsCartPending(productId))
-  const cart = useAppSelector(selectCart)
   const [added, setAdded] = useState(false)
 
-  const isInCart = cart?.items.some((item) => {
-    if (!item.productId) return false
-    const pid = typeof item.productId === 'string' ? item.productId : item.productId._id
-    return pid === productId
-  }) ?? false
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()

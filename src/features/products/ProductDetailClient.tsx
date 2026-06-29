@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ChevronLeft, ChevronRight, ShoppingCart, ArrowLeft, Headphones, Check, Tag, Weight, Ruler } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ArrowLeft, Headphones, Check, Tag, Weight, Ruler, ZoomIn, X } from 'lucide-react'
 import Link from 'next/link'
 import { productService } from '@/src/services/product.service'
 import { getImageUrl } from '@/src/types/product'
@@ -45,6 +45,8 @@ export default function ProductDetailClient({
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
   const [activeIdx, setActiveIdx] = useState(0)
+  const [zoomed, setZoomed] = useState(false)
+  const [qty, setQty] = useState(1)
 
   useEffect(() => {
     productService.getProduct(id)
@@ -96,8 +98,16 @@ export default function ProductDetailClient({
         <div className="product-gallery">
           <div className="product-gallery-main product-img-canvas">
             {images.length > 0 ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={images[activeIdx]} alt={`${product.name} — image ${activeIdx + 1}`} className="product-gallery-main-img" />
+              <button
+                type="button"
+                className="gallery-zoom-trigger"
+                onClick={() => setZoomed(true)}
+                aria-label="Zoom image"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={images[activeIdx]} alt={`${product.name} — image ${activeIdx + 1}`} className="product-gallery-main-img" />
+                <span className="gallery-zoom-icon"><ZoomIn size={18} /></span>
+              </button>
             ) : (
               <Headphones size={80} className="text-muted" />
             )}
@@ -165,13 +175,30 @@ export default function ProductDetailClient({
           )}
 
           {/* CTA */}
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex flex-wrap items-center gap-3 mb-6">
+            {/* Quantity selector */}
+            <div className="qty-control qty-control--lg">
+              <button
+                type="button"
+                aria-label="Decrease quantity"
+                disabled={qty <= 1}
+                onClick={() => setQty((q) => Math.max(1, q - 1))}
+              >−</button>
+              <span>{qty}</span>
+              <button
+                type="button"
+                aria-label="Increase quantity"
+                disabled={qty >= (product.stock ?? 99)}
+                onClick={() => setQty((q) => Math.min(product.stock ?? 99, q + 1))}
+              >+</button>
+            </div>
             <AddToCartButton
               productId={product._id}
               lang={lang}
               label={addToCartLabel}
               variant="full"
               disabled={!inStock}
+              quantity={qty}
               className="btn-lg"
             />
             <WishlistButton productId={product._id} lang={lang} size={20} className="w-12 h-12" />
@@ -233,6 +260,66 @@ export default function ProductDetailClient({
       )}
 
       <ReviewsSection productId={id} dict={reviewsDict} />
+
+      {/* Image zoom lightbox */}
+      {zoomed && images.length > 0 && (
+        <div
+          className="gallery-lightbox"
+          onClick={() => setZoomed(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image zoom"
+        >
+          <button
+            type="button"
+            className="gallery-lightbox-close"
+            onClick={() => setZoomed(false)}
+            aria-label="Close zoom"
+          >
+            <X size={22} />
+          </button>
+          {images.length > 1 && (
+            <button
+              type="button"
+              className="gallery-lightbox-nav gallery-lightbox-nav--prev"
+              onClick={(e) => { e.stopPropagation(); prev() }}
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={28} />
+            </button>
+          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={images[activeIdx]}
+            alt={`${product.name} — image ${activeIdx + 1}`}
+            className="gallery-lightbox-img"
+            onClick={(e) => e.stopPropagation()}
+          />
+          {images.length > 1 && (
+            <button
+              type="button"
+              className="gallery-lightbox-nav gallery-lightbox-nav--next"
+              onClick={(e) => { e.stopPropagation(); next() }}
+              aria-label="Next image"
+            >
+              <ChevronRight size={28} />
+            </button>
+          )}
+          {images.length > 1 && (
+            <div className="gallery-lightbox-dots">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  className={`gallery-lightbox-dot${i === activeIdx ? ' gallery-lightbox-dot--active' : ''}`}
+                  onClick={(e) => { e.stopPropagation(); setActiveIdx(i) }}
+                  aria-label={`Image ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import httpClient from './httpClient'
-import type { Cart, CartItem } from '@/src/types/cart'
+import type { Cart, CartItem, CartProduct } from '@/src/types/cart'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? '/api/v1'
 const CART_BASE = `${API_BASE}/cart`
@@ -46,9 +46,11 @@ export function cartItemCount(cart: Cart | null): number {
   return cart?.items.reduce((sum, item) => sum + item.quantity, 0) ?? 0
 }
 
-/** Extract the product object from a CartItem (populated or string) */
-export function cartItemProduct(item: CartItem) {
-  return typeof item.productId === 'string' ? null : item.productId
+/** Extract the product object from a CartItem (handles both `product` and `productId` API shapes) */
+export function cartItemProduct(item: CartItem): CartProduct | null {
+  if (item.product && typeof item.product === 'object') return item.product
+  if (item.productId && typeof item.productId === 'object') return item.productId as CartProduct
+  return null
 }
 
 /** Effective unit price after snapshot discount */

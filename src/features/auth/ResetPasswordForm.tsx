@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Lock, Eye, EyeOff, CheckCircle, AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
@@ -64,14 +64,14 @@ export default function ResetPasswordForm({ dict, strengthLabels, lang, token }:
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm<ResetPasswordFormValues>({
     resolver: zodResolver(schema),
     mode: 'onTouched',
   })
 
-  const passwordValue = watch('password') ?? ''
+  const passwordValue = useWatch({ control, name: 'password' }) ?? ''
 
   useEffect(() => {
     dispatch(clearFlags())

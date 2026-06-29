@@ -41,8 +41,8 @@ function loadUserFromCookie(): User | null {
 }
 
 const initialState: AuthState = {
-  user: null,
-  token: null,
+  user: loadUserFromCookie(),
+  token: Cookies.get('auth_token') ?? null,
   isHydrated: false,
   isLoading: false,
   isFetchingProfile: false,

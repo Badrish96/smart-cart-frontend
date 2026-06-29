@@ -6,6 +6,10 @@ import { useAppDispatch, useAppSelector } from '@/src/store/hooks'
 import { fetchProductsThunk, selectProducts, selectProductsLoading } from '@/src/store/slices/productSlice'
 import ProductCard from './ProductCard'
 import { PRODUCT_CATEGORIES } from '@/src/types/product'
+import { useVirtualGrid } from '@/src/hooks/useVirtualGrid'
+
+// Estimated height of one product card row (card ~320px + 24px gap)
+const ROW_HEIGHT = 344
 
 interface ProductsDict {
   label: string
@@ -40,6 +44,11 @@ export default function ProductsPageClient({ dict, lang }: Props) {
   const dispatch = useAppDispatch()
   const products = useAppSelector(selectProducts)
   const isLoading = useAppSelector(selectProductsLoading)
+
+  const { containerRef, visibleItems, paddingTop, paddingBottom } = useVirtualGrid({
+    items: products,
+    rowHeight: ROW_HEIGHT,
+  })
 
   // Tab 0 = "All", tabs 1..n = PRODUCT_CATEGORIES
   const tabs = [dict.filter_all, ...PRODUCT_CATEGORIES]
@@ -105,15 +114,19 @@ export default function ProductsPageClient({ dict, lang }: Props) {
             <p className="text-body-sm text-secondary">{dict.no_products_sub}</p>
           </div>
         ) : (
-          <div className="product-grid">
-            {products.map((product) => (
-              <ProductCard
-                key={product._id}
-                product={product}
-                addToCartLabel={dict.add_to_cart}
-                lang={lang}
-              />
-            ))}
+          <div ref={containerRef}>
+            {paddingTop > 0 && <div style={{ height: paddingTop }} />}
+            <div className="product-grid">
+              {visibleItems.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  addToCartLabel={dict.add_to_cart}
+                  lang={lang}
+                />
+              ))}
+            </div>
+            {paddingBottom > 0 && <div style={{ height: paddingBottom }} />}
           </div>
         )}
       </div>

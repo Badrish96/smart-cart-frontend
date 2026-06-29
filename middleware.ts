@@ -4,16 +4,8 @@ import type { NextRequest } from 'next/server'
 const LOCALES = ['en', 'hi']
 const DEFAULT_LOCALE = 'en'
 
-// Paths that should be redirected to /[lang]/path when accessed without a locale prefix
-const LANG_LESS_PATHS = [
-  '/reset-password',
-  '/forgot-password',
-  '/login',
-  '/register',
-]
-
 export function middleware(request: NextRequest) {
-  const { pathname, search } = request.nextUrl
+  const { pathname } = request.nextUrl
 
   // Skip Next.js internals, API routes, and static files
   if (

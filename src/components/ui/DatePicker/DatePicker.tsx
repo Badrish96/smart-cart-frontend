@@ -57,13 +57,14 @@ export default function DatePicker({
 
   const wrapperRef = useRef<HTMLDivElement>(null)
 
-  // Sync view when external value changes
-  useEffect(() => {
+  // Sync view to selected date when picker opens
+  const handleOpen = () => {
     if (selected) {
       setViewYear(selected.getFullYear())
       setViewMonth(selected.getMonth())
     }
-  }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
+    setOpen(true)
+  }
 
   // Close on outside click
   useEffect(() => {
@@ -154,7 +155,7 @@ export default function DatePicker({
         <button
           id={inputId}
           type="button"
-          onClick={() => setOpen(v => !v)}
+          onClick={() => open ? setOpen(false) : handleOpen()}
           className={[
             'dp-trigger',
             open ? 'dp-trigger--open' : '',
