@@ -37,7 +37,7 @@ async function proxy(request: NextRequest, { params }: Context) {
       method:  request.method,
       headers: forwardedHeaders,
       body,
-      signal: AbortSignal.timeout(30000),
+      signal: AbortSignal.timeout(70000),
     })
   } catch (err) {
     const isTimeout = err instanceof Error && err.name === 'TimeoutError'
