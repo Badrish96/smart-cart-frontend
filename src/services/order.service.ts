@@ -1,5 +1,8 @@
 import httpClient from './httpClient'
-import type { Order, OrdersResponse, ShippingAddress, OrderStatus } from '@/src/types/order'
+import type {
+  Order, OrdersResponse, ShippingAddress, OrderStatus,
+  PaymentMethod, CheckoutResult, RazorpayOrderInfo, VerifyPaymentPayload,
+} from '@/src/types/order'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? '/api/v1'
 const ORDERS_BASE = `${API_BASE}/orders`
@@ -7,6 +10,11 @@ const ORDERS_BASE = `${API_BASE}/orders`
 interface OrderEnvelope {
   success: boolean
   data: { order?: Order } | Order
+}
+
+interface CheckoutEnvelope {
+  success: boolean
+  data: { order?: Order; razorpay?: RazorpayOrderInfo } | Order
 }
 
 interface OrdersEnvelope {
@@ -26,6 +34,13 @@ function extractOrder(raw: OrderEnvelope): Order {
   return normalizeOrder(order)
 }
 
+function extractCheckoutResult(raw: CheckoutEnvelope): CheckoutResult {
+  const d = raw.data
+  const rawOrder = ('order' in d && d.order) ? d.order : d as Order
+  const razorpay = 'razorpay' in d ? d.razorpay : undefined
+  return { order: normalizeOrder(rawOrder), razorpay }
+}
+
 function extractOrders(raw: OrdersEnvelope): OrdersResponse {
   const d = raw.data
   if (Array.isArray(d)) return { orders: d.map(normalizeOrder), total: d.length, page: 1, pages: 1 }
@@ -38,11 +53,25 @@ function extractOrders(raw: OrdersEnvelope): OrdersResponse {
 }
 
 export const orderService = {
-  /** User: place order from current cart */
-  async checkout(shippingAddress?: ShippingAddress): Promise<Order> {
-    const payload = shippingAddress ? { shippingAddress } : {}
-    const { data } = await httpClient.post<OrderEnvelope>(ORDERS_BASE, payload)
+  /** User: place order from current cart. paymentMethod defaults to COD on the backend if omitted. */
+  async checkout(shippingAddress?: ShippingAddress, paymentMethod?: PaymentMethod): Promise<CheckoutResult> {
+    const payload: Record<string, unknown> = {}
+    if (shippingAddress) payload.shippingAddress = shippingAddress
+    if (paymentMethod) payload.paymentMethod = paymentMethod
+    const { data } = await httpClient.post<CheckoutEnvelope>(ORDERS_BASE, payload)
+    return extractCheckoutResult(data)
+  },
+
+  /** User: verify a completed Razorpay payment for an order */
+  async verifyPayment(orderId: string, payload: VerifyPaymentPayload): Promise<Order> {
+    const { data } = await httpClient.post<OrderEnvelope>(`${ORDERS_BASE}/${orderId}/verify-payment`, payload)
     return extractOrder(data)
+  },
+
+  /** User: get a fresh Razorpay order to retry payment on an existing unpaid order */
+  async retryPayment(orderId: string): Promise<CheckoutResult> {
+    const { data } = await httpClient.post<CheckoutEnvelope>(`${ORDERS_BASE}/${orderId}/retry-payment`)
+    return extractCheckoutResult(data)
   },
 
   /** User: my orders */

@@ -34,6 +34,8 @@ export interface ShippingAddress {
   country: string
 }
 
+export type PaymentMethod = 'COD' | 'Razorpay'
+
 export interface Order {
   _id: string
   user: string | { _id: string; name: string; email: string }
@@ -41,8 +43,8 @@ export interface Order {
   subtotal: number
   totalAmount?: number
   status: OrderStatus           // normalised from orderStatus by service layer
-  paymentStatus: PaymentStatus
-  paymentMethod?: string
+  paymentStatus: PaymentStatus | 'failed'
+  paymentMethod?: PaymentMethod | string
   shippingAddress?: ShippingAddress
   orderNumber?: string
   createdAt: string
@@ -54,4 +56,23 @@ export interface OrdersResponse {
   total: number
   page: number
   pages: number
+}
+
+/** Razorpay order details returned by checkout when paymentMethod === 'Razorpay' */
+export interface RazorpayOrderInfo {
+  orderId: string
+  amount: number
+  currency: string
+  keyId: string
+}
+
+export interface CheckoutResult {
+  order: Order
+  razorpay?: RazorpayOrderInfo
+}
+
+export interface VerifyPaymentPayload {
+  razorpay_order_id: string
+  razorpay_payment_id: string
+  razorpay_signature: string
 }

@@ -84,8 +84,17 @@
     "go_to_profile": "Add Address",
     "place_order": "Place Order",
     "placing": "Placing Order…",
+    "pay_now": "Pay Now",
+    "paying": "Processing Payment…",
     "subtotal": "Subtotal",
-    "total": "Total"
+    "total": "Total",
+    "payment_method": "Payment Method",
+    "payment_cod": "Cash on Delivery (COD)",
+    "payment_cod_desc": "Pay when your order arrives",
+    "payment_online": "Pay Online",
+    "payment_online_desc": "Credit/Debit card, UPI, Netbanking via Razorpay",
+    "payment_cancelled": "Payment was cancelled. Your order has been created — you can complete payment or cancel it from your orders page.",
+    "payment_verify_failed": "We couldn't verify your payment. Please check your order status or contact support."
   },
   "orders": {
     "page_title": "My Orders — SmartCart",

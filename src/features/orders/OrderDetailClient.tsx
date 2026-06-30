@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, CheckCircle, Headphones, CreditCard, Truck, MapPin } from 'lucide-react'
+import { ArrowLeft, CheckCircle, Headphones, CreditCard, Truck, MapPin, AlertCircle } from 'lucide-react'
 import { orderService } from '@/src/services/order.service'
 import Modal from '@/src/components/ui/Modal/Modal'
 import Dropdown from '@/src/components/ui/Dropdown/Dropdown'
+import { useRazorpayScript } from '@/src/hooks/useRazorpayScript'
 import type { Order, OrderStatus } from '@/src/types/order'
 import { ROUTES } from '@/src/routes'
 
@@ -57,6 +58,9 @@ export default function OrderDetailClient({ id, lang, dict }: Props) {
   const [cancelling, setCancelling] = useState(false)
   const [showCancelModal, setShowCancelModal] = useState(false)
   const [cancelReason, setCancelReason] = useState(CANCEL_REASONS[0])
+  const [retrying, setRetrying] = useState(false)
+  const [retryError, setRetryError] = useState<string | null>(null)
+  const razorpayReady = useRazorpayScript()
 
   useEffect(() => {
     orderService.getOrder(id)
@@ -74,6 +78,44 @@ export default function OrderDetailClient({ id, lang, dict }: Props) {
       setOrder(updated)
     } catch (err) { console.error(err) }
     finally { setCancelling(false) }
+  }
+
+  const handleRetryPayment = async () => {
+    if (!order || !razorpayReady) return
+    setRetryError(null)
+    setRetrying(true)
+    try {
+      const { razorpay } = await orderService.retryPayment(order._id)
+      if (!razorpay) throw new Error('Could not start payment')
+
+      const rzp = new window.Razorpay({
+        key: razorpay.keyId,
+        amount: razorpay.amount,
+        currency: razorpay.currency,
+        order_id: razorpay.orderId,
+        name: 'SmartCart',
+        description: `Order #${order._id.slice(-8).toUpperCase()}`,
+        prefill: {},
+        theme: { color: '#6366f1' },
+        handler: async (response) => {
+          try {
+            const updated = await orderService.verifyPayment(order._id, response)
+            setOrder(updated)
+          } catch {
+            setRetryError('We could not verify your payment. Please try again.')
+          } finally {
+            setRetrying(false)
+          }
+        },
+        modal: {
+          ondismiss: () => setRetrying(false),
+        },
+      })
+      rzp.open()
+    } catch (err) {
+      setRetryError((err as Error).message)
+      setRetrying(false)
+    }
   }
 
   if (loading) {
@@ -97,6 +139,10 @@ export default function OrderDetailClient({ id, lang, dict }: Props) {
 
   const statusKey = STATUS_LABEL[order.status]
   const canCancel = order.status === 'placed' || order.status === 'confirmed'
+  const canRetryPayment =
+    order.paymentMethod === 'Razorpay' &&
+    order.paymentStatus !== 'paid' &&
+    order.status !== 'cancelled'
 
   return (
     <div className="max-w-2xl mx-auto px-6 max-sm:px-4 mt-24 pb-16">
@@ -188,12 +234,16 @@ export default function OrderDetailClient({ id, lang, dict }: Props) {
             <h3 className="fs-xs fw-semibold text-muted uppercase tracking-wide mb-3 flex items-center gap-1.5">
               <CreditCard size={13} /> Payment
             </h3>
-            <p className="fs-sm fw-semibold text-primary">Cash on Delivery</p>
+            <p className="fs-sm fw-semibold text-primary">
+              {order.paymentMethod === 'Razorpay' ? 'Online Payment' : 'Cash on Delivery'}
+            </p>
             <p className="fs-xs text-muted mt-0.5">
-              Pay when delivered
+              {order.paymentMethod === 'Razorpay' ? 'Paid via Razorpay' : 'Pay when delivered'}
             </p>
             <span className={`order-status-badge order-status-badge--${order.paymentStatus} mt-2`}>
-              {order.paymentStatus === 'paid' ? dict.payment_paid : dict.payment_pending}
+              {order.paymentStatus === 'paid' ? dict.payment_paid
+                : order.paymentStatus === 'failed' ? 'Failed'
+                : dict.payment_pending}
             </span>
           </div>
 
@@ -218,6 +268,30 @@ export default function OrderDetailClient({ id, lang, dict }: Props) {
               {order.shippingAddress.street}, {order.shippingAddress.city},<br />
               {order.shippingAddress.state} {order.shippingAddress.zipCode}, {order.shippingAddress.country}
             </p>
+          </div>
+        )}
+
+        {/* Complete payment */}
+        {canRetryPayment && (
+          <div className="card-glass rounded-2xl p-5" style={{ borderColor: 'rgba(234,179,8,0.3)' }}>
+            <p className="fs-sm fw-semibold text-primary mb-1 flex items-center gap-1.5">
+              <AlertCircle size={15} style={{ color: '#eab308' }} />
+              Complete Your Payment
+            </p>
+            <p className="fs-xs text-muted mb-3">
+              This order hasn&apos;t been paid for yet. Complete your payment to confirm it.
+            </p>
+            {retryError && (
+              <p className="fs-xs mb-3" style={{ color: '#ef4444' }}>{retryError}</p>
+            )}
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              disabled={retrying || !razorpayReady}
+              onClick={handleRetryPayment}
+            >
+              {retrying ? 'Processing…' : 'Complete Payment'}
+            </button>
           </div>
         )}
 
