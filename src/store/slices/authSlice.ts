@@ -31,18 +31,15 @@ function saveUser(user: User | null) {
   else Cookies.remove(USER_COOKIE)
 }
 
-function loadUserFromCookie(): User | null {
-  try {
-    const raw = Cookies.get(USER_COOKIE)
-    return raw ? JSON.parse(raw) : null
-  } catch {
-    return null
-  }
-}
-
+// IMPORTANT: never read cookies here. This module evaluates on both the server
+// (SSR — no cookies, no `document`) and the client (cookies present), so doing
+// so makes the initial state diverge between environments and triggers a
+// hydration mismatch (React error #418). Always start at null/null and let
+// ReduxProvider's mount effect dispatch `hydrateAuth` once the client has
+// painted the server-matching markup.
 const initialState: AuthState = {
-  user: loadUserFromCookie(),
-  token: Cookies.get('auth_token') ?? null,
+  user: null,
+  token: null,
   isHydrated: false,
   isLoading: false,
   isFetchingProfile: false,
