@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { PlusCircle, LayoutList, ClipboardList, LogOut, Moon, Sun } from 'lucide-react'
+import { PlusCircle, LayoutList, ClipboardList, UserCircle, LogOut, Moon, Sun } from 'lucide-react'
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks'
 import { logoutThunk, selectAuth } from '@/src/store/slices/authSlice'
 import { ROUTES } from '@/src/routes'
@@ -33,6 +33,7 @@ export default function AdminLayout({ children, lang }: Props) {
     { href: ROUTES.adminAddProduct(lang), label: 'Add Product', icon: <PlusCircle size={18} /> },
     { href: ROUTES.adminProducts(lang),   label: 'All Products', icon: <LayoutList size={18} /> },
     { href: `/${lang}/admin/orders`,       label: 'Orders',       icon: <ClipboardList size={18} /> },
+    { href: ROUTES.adminProfile(lang),     label: 'Profile',      icon: <UserCircle size={18} /> },
   ]
 
   return (
@@ -77,13 +78,13 @@ export default function AdminLayout({ children, lang }: Props) {
           </button>
 
           {user && (
-            <div className="admin-user-info">
+            <Link href={ROUTES.adminProfile(lang)} className="admin-user-info link-plain" aria-label="View profile">
               <span className="admin-user-avatar" title={user.name}>{user.name.charAt(0).toUpperCase()}</span>
               <div className="flex flex-col min-w-0 admin-user-text">
                 <span className="fs-sm fw-semibold text-primary">{user.name}</span>
                 <span className="fs-xs text-muted admin-user-email">{user.email}</span>
               </div>
-            </div>
+            </Link>
           )}
 
           <button type="button" onClick={handleLogout} className="admin-logout-btn" aria-label="Sign out">

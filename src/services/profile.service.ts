@@ -37,10 +37,13 @@ export const profileService = {
 
   async updateProfile(payload: UpdateProfilePayload | FormData): Promise<User> {
     const isFormData = payload instanceof FormData
+    // Must clear the default JSON Content-Type for FormData uploads so axios can
+    // compute the multipart boundary itself — a hardcoded header has no boundary
+    // and the backend's multer parser rejects the request.
     const { data } = await httpClient.put<ProfileEnvelope>(
       PROFILE_BASE,
       payload,
-      isFormData ? { headers: { 'Content-Type': 'multipart/form-data' } } : undefined
+      isFormData ? { headers: { 'Content-Type': undefined } } : undefined
     )
     return extractUser(data)
   },

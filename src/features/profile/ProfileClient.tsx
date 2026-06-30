@@ -233,7 +233,13 @@ function ProfileInfoForm({ user, dict, isLoading, onSave }: InfoFormProps) {
 
 // ── Root component ────────────────────────────────────────────────────────────
 
-export default function ProfileClient({ dict }: { dict: Dict }) {
+interface ProfileClientProps {
+  dict: Dict
+  /** Outer wrapper classes — override when embedding inside a layout that already provides spacing (e.g. AdminLayout). */
+  className?: string
+}
+
+export default function ProfileClient({ dict, className = 'max-w-3xl mx-auto px-6 max-sm:px-4 mt-20 mb-10' }: ProfileClientProps) {
   const dispatch = useAppDispatch()
   const { user, token, isLoading } = useAppSelector(selectAuth)
   const isFetchingProfile = useAppSelector(selectIsFetchingProfile)
@@ -285,7 +291,7 @@ export default function ProfileClient({ dict }: { dict: Dict }) {
   ].join('|')
 
   return (
-    <div className="max-w-3xl mx-auto px-6 max-sm:px-4 mt-20 mb-10">
+    <div className={className}>
       <h1 className="text-h2 text-primary mb-8">{dict.heading}</h1>
 
       {/* Tabs */}

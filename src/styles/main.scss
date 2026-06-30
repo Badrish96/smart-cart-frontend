@@ -1578,6 +1578,10 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+
+  &:hover { background: var(--color-bg-card-hover); }
 }
 
 .admin-user-avatar {

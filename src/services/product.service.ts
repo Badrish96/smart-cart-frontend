@@ -78,18 +78,19 @@ export const productService = {
   },
 
   async addProduct(formData: FormData): Promise<Product> {
+    // httpClient defaults to Content-Type: application/json — must explicitly clear it
+    // here so axios computes the multipart boundary itself instead of sending a bare
+    // "multipart/form-data" header with no boundary (which breaks the backend's parser).
     const { data } = await httpClient.post<BackendProductEnvelope>(PRODUCTS_BASE, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: { 'Content-Type': undefined },
     })
     return extractProduct(data)
   },
 
   async updateProduct(id: string, formData: FormData): Promise<Product> {
-    const { data } = await httpClient.put<BackendProductEnvelope>(
-      `${PRODUCTS_BASE}/${id}`,
-      formData,
-      { headers: { 'Content-Type': 'multipart/form-data' } }
-    )
+    const { data } = await httpClient.put<BackendProductEnvelope>(`${PRODUCTS_BASE}/${id}`, formData, {
+      headers: { 'Content-Type': undefined },
+    })
     return extractProduct(data)
   },
 

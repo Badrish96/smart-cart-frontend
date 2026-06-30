@@ -31,6 +31,7 @@ export const ROUTES = {
   adminDashboard: (lang: string) => `/${lang}/admin`,
   adminAddProduct: (lang: string) => `/${lang}/admin/add-product`,
   adminProducts: (lang: string) => `/${lang}/admin/products`,
+  adminProfile: (lang: string) => `/${lang}/admin/profile`,
 } as const
 
 export type RouteKey = keyof typeof ROUTES
