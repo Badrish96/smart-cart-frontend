@@ -5,8 +5,8 @@ import { Mail, Phone, MapPin, MessageCircle, Clock, ArrowRight } from 'lucide-re
 import { ROUTES } from '@/src/routes'
 
 const SUPPORT_EMAIL = 'badrishchoubeystar@gmail.com'
-const SUPPORT_PHONE = '+91 95408 49758'
-const SUPPORT_PHONE_RAW = '+919540849758'
+const SUPPORT_PHONE = '+91 95408 40758'
+const SUPPORT_PHONE_RAW = '+919540840758'
 
 interface Props {
   lang: string

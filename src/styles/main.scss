@@ -1596,6 +1596,8 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+
+  &--img { object-fit: cover; }
 }
 
 .admin-user-text {

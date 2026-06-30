@@ -79,7 +79,12 @@ export default function AdminLayout({ children, lang }: Props) {
 
           {user && (
             <Link href={ROUTES.adminProfile(lang)} className="admin-user-info link-plain" aria-label="View profile">
-              <span className="admin-user-avatar" title={user.name}>{user.name.charAt(0).toUpperCase()}</span>
+              {user.profilePicture?.url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={user.profilePicture.url} alt={user.name} className="admin-user-avatar admin-user-avatar--img" />
+              ) : (
+                <span className="admin-user-avatar" title={user.name}>{user.name.charAt(0).toUpperCase()}</span>
+              )}
               <div className="flex flex-col min-w-0 admin-user-text">
                 <span className="fs-sm fw-semibold text-primary">{user.name}</span>
                 <span className="fs-xs text-muted admin-user-email">{user.email}</span>
