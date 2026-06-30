@@ -1,5 +1,5 @@
 import httpClient from './httpClient'
-import type { Product, ProductsResponse } from '@/src/types/product'
+import type { Product, ProductFilters, ProductsResponse } from '@/src/types/product'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? '/api/v1'
 const PRODUCTS_BASE = `${API_BASE}/products`
@@ -42,20 +42,34 @@ function extractProduct(raw: BackendProductEnvelope): Product {
   return d as unknown as Product
 }
 
+function buildParams(filters: ProductFilters): URLSearchParams {
+  const params = new URLSearchParams()
+  if (filters.brand)        params.set('brand', filters.brand)
+  if (filters.minPrice !== undefined)    params.set('minPrice', String(filters.minPrice))
+  if (filters.maxPrice !== undefined)    params.set('maxPrice', String(filters.maxPrice))
+  if (filters.minRating !== undefined)   params.set('minRating', String(filters.minRating))
+  if (filters.minDiscount !== undefined) params.set('minDiscount', String(filters.minDiscount))
+  if (filters.inStock !== undefined)     params.set('inStock', String(filters.inStock))
+  if (filters.search)       params.set('search', filters.search)
+  if (filters.sort)         params.set('sort', filters.sort)
+  params.set('page', String(filters.page ?? 1))
+  if (filters.limit) params.set('limit', String(filters.limit))
+  return params
+}
+
 export const productService = {
-  async getProducts(category?: string, page = 1): Promise<ProductsResponse> {
-    const params = new URLSearchParams({ page: String(page) })
-    const url = category
-      ? `${PRODUCTS_BASE}/category/${encodeURIComponent(category)}?${params}`
+  /** category is routed via the dedicated /products/category/:category endpoint; all other filters are query params on either endpoint. */
+  async getProducts(filters: ProductFilters = {}): Promise<ProductsResponse> {
+    const params = buildParams(filters)
+    const url = filters.category
+      ? `${PRODUCTS_BASE}/category/${encodeURIComponent(filters.category)}?${params}`
       : `${PRODUCTS_BASE}?${params}`
     const { data } = await httpClient.get<BackendProductsEnvelope>(url)
     return extractProducts(data)
   },
 
   async searchProducts(query: string, page = 1): Promise<ProductsResponse> {
-    const params = new URLSearchParams({ search: query, page: String(page) })
-    const { data } = await httpClient.get<BackendProductsEnvelope>(`${PRODUCTS_BASE}?${params}`)
-    return extractProducts(data)
+    return productService.getProducts({ search: query, page })
   },
 
   async getProduct(id: string): Promise<Product> {

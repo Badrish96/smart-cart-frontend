@@ -60,7 +60,7 @@ export default function TestimonialsSection({ dict }: TestimonialsSectionProps) 
 
     async function load() {
       try {
-        const { products } = await productService.getProducts(undefined, 1)
+        const { products } = await productService.getProducts({ page: 1 })
         const candidates = products.slice(0, 8)
 
         const results = await Promise.allSettled(

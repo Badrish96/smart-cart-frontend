@@ -1,36 +1,36 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { ShoppingCart, ChevronDown, Headphones } from 'lucide-react'
-import Button from '../../components/ui/Button'
-import WishlistButton from '@/src/components/ui/WishlistButton/WishlistButton'
-import AddToCartButton from '@/src/components/ui/AddToCartButton/AddToCartButton'
-import { getImageUrl } from '@/src/types/product'
-import type { Product } from '@/src/types/product'
-import { ROUTES } from '@/src/routes'
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronDown, Headphones } from "lucide-react";
+import Button from "../../components/ui/Button";
+import WishlistButton from "@/src/components/ui/WishlistButton/WishlistButton";
+import AddToCartButton from "@/src/components/ui/AddToCartButton/AddToCartButton";
+import { getImageUrl } from "@/src/types/product";
+import type { Product } from "@/src/types/product";
+import { ROUTES } from "@/src/routes";
 
 interface HeroDict {
-  title_line1: string
-  title_accent: string
-  title_line2: string
-  description: string
-  shop_now: string
-  add_to_cart: string
+  title_line1: string;
+  title_accent: string;
+  title_line2: string;
+  description: string;
+  shop_now: string;
+  add_to_cart: string;
 }
 
 interface ProductsDict {
-  wireless_headphones: string
-  add_to_cart: string
-  view_all: string
+  wireless_headphones: string;
+  add_to_cart: string;
+  view_all: string;
 }
 
 interface Props {
-  heroDict: HeroDict
-  productsDict: ProductsDict
-  products?: Product[]
-  isLoading?: boolean
-  lang?: string
+  heroDict: HeroDict;
+  productsDict: ProductsDict;
+  products?: Product[];
+  isLoading?: boolean;
+  lang?: string;
 }
 
 export default function HeroSection({
@@ -38,7 +38,7 @@ export default function HeroSection({
   productsDict,
   products = [],
   isLoading = false,
-  lang = 'en',
+  lang = "en",
 }: Props) {
   return (
     <div className="flex flex-col">
@@ -62,25 +62,30 @@ export default function HeroSection({
             <h1 className="hero-heading">
               <span className="hero-title-line">{heroDict.title_line1}</span>
               <span className="hero-title-row">
-                <span className="hero-title-accent">{heroDict.title_accent}</span>
+                <span className="hero-title-accent">
+                  {heroDict.title_accent}
+                </span>
                 <span className="hero-title-line"> {heroDict.title_line2}</span>
               </span>
             </h1>
             <p className="hero-description">{heroDict.description}</p>
             <div className="hero-cta flex gap-2 items-center max-sm:flex-col max-sm:gap-3">
               <Link href={ROUTES.products(lang)} className="link-plain">
-                <Button variant="primary" size="lg">{heroDict.shop_now}</Button>
+                <Button variant="primary" size="lg">
+                  {heroDict.shop_now}
+                </Button>
               </Link>
-              <Button variant="outline" size="lg" icon={<ShoppingCart size={16} />}>
-                {heroDict.add_to_cart}
-              </Button>
             </div>
           </div>
 
           <button
             type="button"
             className="scroll-indicator"
-            onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() =>
+              document
+                .getElementById("products")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
             aria-label="Scroll to products"
           >
             <ChevronDown size={18} />
@@ -103,11 +108,11 @@ export default function HeroSection({
           ) : products.length > 0 ? (
             <div className="hero-products-grid">
               {products.map((product) => {
-                const rawImg = product.images?.[0]
-                const imgUrl = rawImg ? getImageUrl(rawImg) : null
+                const rawImg = product.images?.[0];
+                const imgUrl = rawImg ? getImageUrl(rawImg) : null;
                 const discountedPrice = product.discount
                   ? product.price * (1 - product.discount / 100)
-                  : null
+                  : null;
                 return (
                   <Link
                     key={product._id}
@@ -117,7 +122,11 @@ export default function HeroSection({
                     <div className="product-image-wrap flex items-center justify-center">
                       {imgUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={imgUrl} alt={product.name} className="hero-product-thumb" />
+                        <img
+                          src={imgUrl}
+                          alt={product.name}
+                          className="hero-product-thumb"
+                        />
                       ) : (
                         <Headphones size={64} className="text-muted" />
                       )}
@@ -130,26 +139,41 @@ export default function HeroSection({
                         <div className="flex items-baseline gap-1.5">
                           {discountedPrice ? (
                             <>
-                              <span className="price-current">₹{discountedPrice.toFixed(2)}</span>
-                              <span className="price-original fs-xs">₹{product.price.toFixed(2)}</span>
+                              <span className="price-current">
+                                ₹{discountedPrice.toFixed(2)}
+                              </span>
+                              <span className="price-original fs-xs">
+                                ₹{product.price.toFixed(2)}
+                              </span>
                             </>
                           ) : (
-                            <span className="price-current">₹{product.price.toFixed(2)}</span>
+                            <span className="price-current">
+                              ₹{product.price.toFixed(2)}
+                            </span>
                           )}
                         </div>
                         <div className="flex items-center gap-1.5">
-                          <WishlistButton productId={product._id} lang={lang} size={13} />
-                          <AddToCartButton productId={product._id} lang={lang} label={productsDict.add_to_cart} variant="icon" />
+                          <WishlistButton
+                            productId={product._id}
+                            lang={lang}
+                            size={13}
+                          />
+                          <AddToCartButton
+                            productId={product._id}
+                            lang={lang}
+                            label={productsDict.add_to_cart}
+                            variant="icon"
+                          />
                         </div>
                       </div>
                     </div>
                   </Link>
-                )
+                );
               })}
             </div>
           ) : null}
         </div>
       </section>
     </div>
-  )
+  );
 }

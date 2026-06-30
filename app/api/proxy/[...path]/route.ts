@@ -7,13 +7,13 @@ import { NextRequest, NextResponse } from 'next/server'
  *
  * Uses arrayBuffer so binary multipart/form-data is preserved exactly.
  */
-const BACKEND_URL = (process.env.BACKEND_URL ?? 'http://localhost:5000').replace(/\/$/, '')
+const BACKEND_URL = (process.env.BACKEND_URL || 'http://localhost:5000').replace(/\/$/, '')
 
 type Context = { params: Promise<{ path: string[] }> }
 
 async function proxy(request: NextRequest, { params }: Context) {
   const { path } = await params
-  const targetUrl = `${BACKEND_URL}/${path.join('/')}`
+  const targetUrl = `${BACKEND_URL}/${path.join('/')}${request.nextUrl.search}`
 
   // Read body as raw bytes — safe for JSON, text, and multipart/form-data
   const body =

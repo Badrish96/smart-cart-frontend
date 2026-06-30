@@ -40,9 +40,9 @@ export default function AdminLayout({ children, lang }: Props) {
       {/* Sidebar */}
       <aside className="admin-sidebar">
         <div className="admin-sidebar-brand">
-          <Link href={ROUTES.home(lang)} className="flex items-center gap-2 link-plain">
+          <Link href={ROUTES.home(lang)} className="flex items-center gap-2 link-plain min-w-0">
             <div className="logo-icon-bg admin-brand-icon flex items-center justify-center text-white fw-bold fs-base">S</div>
-            <span className="fw-bold fs-lg text-primary">SmartCart</span>
+            <span className="fw-bold fs-lg text-primary admin-brand-text">SmartCart</span>
           </Link>
           <span className="admin-badge">Admin</span>
         </div>
@@ -54,10 +54,11 @@ export default function AdminLayout({ children, lang }: Props) {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-label={item.label}
                 className={`admin-nav-item${active ? ' admin-nav-item--active' : ''}`}
               >
                 {item.icon}
-                <span>{item.label}</span>
+                <span className="admin-nav-label">{item.label}</span>
               </Link>
             )
           })}
@@ -72,22 +73,22 @@ export default function AdminLayout({ children, lang }: Props) {
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-            <span>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+            <span className="admin-footer-label">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
           </button>
 
           {user && (
             <div className="admin-user-info">
-              <span className="admin-user-avatar">{user.name.charAt(0).toUpperCase()}</span>
-              <div className="flex flex-col min-w-0">
+              <span className="admin-user-avatar" title={user.name}>{user.name.charAt(0).toUpperCase()}</span>
+              <div className="flex flex-col min-w-0 admin-user-text">
                 <span className="fs-sm fw-semibold text-primary">{user.name}</span>
                 <span className="fs-xs text-muted admin-user-email">{user.email}</span>
               </div>
             </div>
           )}
 
-          <button type="button" onClick={handleLogout} className="admin-logout-btn">
+          <button type="button" onClick={handleLogout} className="admin-logout-btn" aria-label="Sign out">
             <LogOut size={16} />
-            <span>Sign out</span>
+            <span className="admin-footer-label">Sign out</span>
           </button>
         </div>
       </aside>

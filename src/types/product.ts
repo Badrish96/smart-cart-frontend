@@ -61,6 +61,32 @@ export interface ProductsResponse {
   pages: number
 }
 
+export const SORT_OPTIONS = [
+  'newest',
+  'oldest',
+  'priceLowToHigh',
+  'priceHighToLow',
+  'ratingHighToLow',
+  'discountHighToLow',
+  'nameAZ',
+  'nameZA',
+] as const
+export type SortOption = (typeof SORT_OPTIONS)[number]
+
+export interface ProductFilters {
+  category?: string
+  brand?: string
+  minPrice?: number
+  maxPrice?: number
+  minRating?: number
+  minDiscount?: number
+  inStock?: boolean
+  search?: string
+  sort?: SortOption
+  page?: number
+  limit?: number
+}
+
 /** Extract URL from either image format the backend may return */
 export function getImageUrl(image: ProductImage | string): string {
   return typeof image === 'string' ? image : image.url

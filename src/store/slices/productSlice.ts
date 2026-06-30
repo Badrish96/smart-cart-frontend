@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { productService } from "@/src/services/product.service";
 import { addToast } from "./toastSlice";
-import type { Product, ProductsResponse } from "@/src/types/product";
+import type { Product, ProductFilters, ProductsResponse } from "@/src/types/product";
 import type { RootState } from "../store";
 
 interface ProductState {
@@ -34,12 +34,9 @@ const initialState: ProductState = {
 
 export const fetchProductsThunk = createAsyncThunk(
   "products/fetchAll",
-  async (
-    { category, page }: { category?: string; page?: number },
-    { rejectWithValue },
-  ) => {
+  async (filters: ProductFilters, { rejectWithValue }) => {
     try {
-      return await productService.getProducts(category, page);
+      return await productService.getProducts(filters);
     } catch (err: unknown) {
       return rejectWithValue((err as Error).message);
     }
